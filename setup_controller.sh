@@ -111,7 +111,7 @@ apt-get install -y keystone python-keystone python-keystoneclient
 CONF=/etc/keystone/keystone.conf
 test -f $CONF.orig || cp $CONF $CONF.orig
 sed \
-   -e "s/^#*connection *=.*/connection = mysql:\/\/keystone:$MYSQL_DB_PASSWORD@localhost\/keystone/" \
+   -e "s/^#*connection *=.*/connection = mysql:\/\/keystone:$MYSQL_DB_PASSWORD@$CONTROLLER_ADMIN_ADDRESS\/keystone/" \
    -e "s/^#* *admin_token *=.*/admin_token = $KEYSTONE_ADMIN_TOKEN/" \
    $CONF.orig > $CONF
 service keystone restart
@@ -120,13 +120,23 @@ cat << OPENRC > ~/openrc
 export OS_TENANT_NAME=admin
 export OS_USERNAME=admin
 export OS_PASSWORD=$KEYSTONE_ADMIN_PASSWORD
-export OS_AUTH_URL="http://localhost:5000/v2.0/"
-export OS_SERVICE_ENDPOINT="http://localhost:35357/v2.0"
+export OS_AUTH_URL="http://$CONTROLLER_ADMIN_ADDRESS:5000/v2.0/"
+export OS_SERVICE_ENDPOINT="http://$CONTROLLER_ADMIN_ADDRESS:35357/v2.0"
 export OS_SERVICE_TOKEN=$KEYSTONE_ADMIN_TOKEN
 OPENRC
 source ~/openrc
 echo "source ~/openrc" >> ~/.bashrc
-bash -ex keystone_initial_data.sh
+sed \
+    -e "s#--publicurl http://localhost#--publicurl http://$CONTROLLER_PUBLIC_ADDRESS#g" \
+    -e "s#--publicurl 'http://localhost#--publicurl 'http://$CONTROLLER_PUBLIC_ADDRESS#g" \
+    -e "s#--adminurl http://localhost#--adminurl http://$CONTROLLER_ADMIN_ADDRESS#g" \
+    -e "s#--adminurl 'http://localhost#--adminurl 'http://$CONTROLLER_ADMIN_ADDRESS#g" \
+    -e "s#--internalurl http://localhost#--internalurl http://$CONTROLLER_INTERNAL_ADDRESS#g" \
+    -e "s#--internalurl 'http://localhost#--internalurl 'http://$CONTROLLER_INTERNAL_ADDRESS#g" \
+    -e 's/QUANTUM/NEUTRON/g' \
+    -e 's/quantum/neutron/g' \
+    /usr/share/keystone/sample_data.sh > /tmp/sample_data.sh
+
 }
 
 #=============================================================================
