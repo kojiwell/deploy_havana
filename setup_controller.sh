@@ -123,12 +123,11 @@ sed \
 service keystone restart
 keystone-manage db_sync
 cat << OPENRC > ~/openrc
-export OS_TENANT_NAME=admin
 export OS_USERNAME=admin
-export OS_PASSWORD=$KEYSTONE_ADMIN_PASSWORD
-export OS_AUTH_URL="http://$CONTROLLER_ADMIN_ADDRESS:5000/v2.0/"
-export OS_SERVICE_ENDPOINT="http://$CONTROLLER_ADMIN_ADDRESS:35357/v2.0"
-export OS_SERVICE_TOKEN=$KEYSTONE_ADMIN_TOKEN
+export OS_PASSWORD=$ADMIN_PASSWORD
+export OS_TENANT_NAME=demo
+export OS_AUTH_URL=http://$CONTROLLER_ADMIN_ADDRESS:35357/v2.0
+export OS_NO_CACHE=1
 OPENRC
 source ~/openrc
 echo "source ~/openrc" >> ~/.bashrc
@@ -142,7 +141,7 @@ sed \
     -e 's/QUANTUM/NEUTRON/g' \
     -e 's/quantum/neutron/g' \
     /usr/share/keystone/sample_data.sh > /tmp/sample_data.sh
-
+bash -ex /tmp/sample_data.sh
 }
 
 #=============================================================================
@@ -290,7 +289,12 @@ service nova-novncproxy restart
 # OpenStack Network Service (Cloud Controller)
 #=============================================================================
 function setup_neutron() {
-apt-get install -y neutron-server
+apt-get -y install \
+    neutron-server \
+    neutron-plugin-openvswitch-agent \
+    neutron-dhcp-agent \
+    neutron-l3-agent \
+    neutron-metadata-agent
 
 CONF=/etc/neutron/neutron.conf
 test -f $CONF.orig || cp $CONF $CONF.orig
@@ -299,7 +303,7 @@ test -f $CONF.orig || cp $CONF $CONF.orig
 lock_path = \$state_path/lock
 bind_host = 0.0.0.0
 bind_port = 9696
-core_plugin = neutron.plugins.openvswitch.ovs_neutron_plugin.OVSQuantumPluginV2
+core_plugin = neutron.plugins.openvswitch.ovs_neutron_plugin.OVSNeutronPluginV2
 api_paste_config = /etc/neutron/api-paste.ini
 control_exchange = neutron
 rpc_backend = neutron.openstack.common.rpc.impl_kombu
@@ -326,9 +330,9 @@ NEUTRONCONF
 
 CONF=/etc/neutron/plugins/openvswitch/ovs_neutron_plugin.ini
 test -f $CONF.orig || cp $CONF $CONF.orig
-/bin/cat << OPENVSWITCH_PLUGIN > $CONF
+cat << OPENVSWITCH_PLUGIN > $CONF
 [DATABASE]
-sql_connection = mysql://neutron:password@localhost/neutron
+sql_connection = mysql://neutron:$MYSQL_DB_PASSWORD@localhost/neutron
 [OVS]
 tenant_network_type = gre 
 tunnel_id_ranges = 1:1000
@@ -338,12 +342,68 @@ local_ip = $CONTROLLER_INTERNAL_ADDRESS
 firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver
 OPENVSWITCH_PLUGIN
 ln -s /etc/neutron/plugins/openvswitch/ovs_neutron_plugin.ini /etc/neutron/plugin.ini
+
+CONF=/etc/neutron/api-paste.ini
+test -f $CONF.orig || cp $CONF $CONF.orig
+cat << NEUTRON_API_PASTE > $CONF
+[composite:neutron]
+use = egg:Paste#urlmap
+/: neutronversions
+/v2.0: neutronapi_v2_0
+
+[composite:neutronapi_v2_0]
+use = call:neutron.auth:pipeline_factory
+noauth = extensions neutronapiapp_v2_0
+keystone = authtoken keystonecontext extensions neutronapiapp_v2_0
+
+[filter:keystonecontext]
+paste.filter_factory = neutron.auth:QuantumKeystoneContext.factory
+
+[filter:authtoken]
+paste.filter_factory = keystoneclient.middleware.auth_token:filter_factory
+auth_host = $CONTROLLER_ADMIN_ADDRESS
+auth_port = 35357
+auth_protocol = http
+admin_tenant_name = service
+admin_user = neutron
+admin_password = $SERVICE_PASSWORD
+
+[filter:extensions]
+paste.filter_factory = neutron.api.extensions:plugin_aware_extension_middleware_factory
+
+[app:neutronversions]
+paste.app_factory = neutron.api.versions:Versions.factory
+
+[app:neutronapiapp_v2_0]
+paste.app_factory = neutron.api.v2.router:APIRouter.factory
+NEUTRON_API_PASTE
+
+CONF=/etc/neutron/metadata_agent.ini
+test -f $CONF.orig || cp $CONF $CONF.orig
+cat << NEUTRON_META > $CONF
+[DEFAULT]
+auth_url = http://$NOVA_CONTROLLER_IP:35357/v2.0
+auth_region = RegionOne
+admin_tenant_name = service
+admin_user = neutron
+admin_password = $SERVICE_PASSWORD
+nova_metadata_ip = $CONTROLLER_ADMIN_ADDRESS
+nova_metadata_port = 8775
+metadata_proxy_shared_secret = $NEUTRON_SHARED_SECRET
+NEUTRON_META
+
 service neutron-server restart
 }
 
 function setup_dashboard() {
 apt-get -y install openstack-dashboard memcached python-memcache
 apt-get -y remove --purge openstack-dashboard-ubuntu-theme
+CONF=/etc/memcached.conf
+test -f $CONF.orig || cp $CONF $CONF.orig
+sed \
+    -e "s/127.0.0.1/$CONTROLLER_ADMIN_ADDRESS/" \
+    $CONF.orig > $CONF
+
 }
 
 
