@@ -27,6 +27,6 @@ Create your ``setuprc`` file and modify it for your environment, and execute
 
 If everything's went fine, the machine would be rebooted at the end of the script. Examples of ``setuprc`` are given below.
 
-* [setuprc example for 2NICs](setuprc_2nics.html)
-* [setuprc example for 1NIC](setuprc_1nic.html)
+* `setuprc example for 2NICs <http://kjtanaka.github.io/deploy_havana/setuprc_2nics.html>`_
+* `setuprc example for 1NIC <http://kjtanaka.github.io/deploy_havana/setuprc_1nic.html>`_
 
