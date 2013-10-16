@@ -6,27 +6,100 @@
 Build All-in-One Node
 ==========================================================
 
-This is a test.test.::
+First, update your /etc/hosts for your environment. If a hostname doesn't exist,
+nova-network fails.
+
+And, become root user and download the installation scripts.::
+
+   su - root
+   git clone https://github.com/kjtanaka/deploy_havana.git
+   cd deploy_havana
+
+Create your setuprc file and modify it for your environment, and execute
+build_all_in_one.sh.1NIC example and 2NICs example are described bellow.::
+
+   bash -ex build_all_in_one.sh
+
+2NICs example
+-------------
 
     Public Network
    +-------------------------------
        |                          
-       | eth1 [xxx.xxx.xxx.xxx/24]
-     +-----------------+          
-     | All in One      |          
-     | =============== |          
-     | Keystone        |          
-     | Glance          |          
-     | Horizon         |          
-     | Nova API        |          
-     | Nova Scheduler  |          
-     | Nova Compute    |          
-     | Nova Network    |          
-     | Nova Conductor  |          
-     +-----------------+          
-       | eth0 [xxx.xxx.xxx.xxx/24]
+       | eth1 [123.123.123.123/24]
+     +------------------+          
+     | host01           |          
+     | ================ |          
+     | Keystone         |          
+     | Glance           |          
+     | Horizon          |          
+     | Nova API         |          
+     | Nova Scheduler   |          
+     | Nova Compute     |          
+     | Nova Network     |          
+     | Nova Conductor   |
+     | Cinder API       |
+     | Cinder Scheduler |     
+     +------------------+          
+       | eth0 [192.168.100.1/24]
        |                          
    +-------------------------------
     Internal/Admin Network
 
-Test.
+The setuprc file becomes like this::
+
+   # setuprc - configuration file for deploying OpenStack
+
+   export PASSWORD='123ABCDefgh'
+   export ADMIN_PASSWORD=$PASSWORD
+   export SERVICE_PASSWORD=$PASSWORD
+   export ENABLE_ENDPOINTS=1
+   MYSQLPASS=$PASSWORD
+   RABBIT_PASS=$PASSWORD
+   export CONTROLLER_PUBLIC_ADDRESS="123.123.123.123"
+   export CONTROLLER_ADMIN_ADDRESS="192.168.100.1"
+   export CONTROLLER_INTERNAL_ADDRESS=$CONTROLLER_ADMIN_ADDRESS
+   FIXED_RANGE="192.168.201.0/24"
+   MYSQL_ACCESS="192.168.100.%"
+   PUBLIC_INTERFACE="eth1"
+   FLAT_INTERFACE="eth0"
+
+1NIC example
+------------
+
+    Public Network
+   +-------------------------------
+       |                          
+       | eth0 [123.123.123.123/24]
+     +------------------+          
+     | host01           |          
+     | ================ |          
+     | Keystone         |          
+     | Glance           |          
+     | Horizon          |          
+     | Nova API         |          
+     | Nova Scheduler   |          
+     | Nova Compute     |          
+     | Nova Network     |          
+     | Nova Conductor   |
+     | Cinder API       |
+     | Cinder Scheduler |     
+     +------------------+          
+
+The setuprc file is like this::
+
+   # setuprc - configuration file for deploying OpenStack
+
+   export PASSWORD='DoMakeSayThink'
+   export ADMIN_PASSWORD=$PASSWORD
+   export SERVICE_PASSWORD=$PASSWORD
+   export ENABLE_ENDPOINTS=1
+   MYSQLPASS=$PASSWORD
+   RABBIT_PASS=$PASSWORD
+   export CONTROLLER_PUBLIC_ADDRESS='123.123.123.123'
+   export CONTROLLER_ADMIN_ADDRESS=$CONTROLLER_PUBLIC_ADDRESS
+   export CONTROLLER_INTERNAL_ADDRESS=$CONTROLLER_ADMIN_ADDRESS
+   FIXED_RANGE="192.168.201.0/24"
+   MYSQL_ACCESS="123.123.123.%"
+   PUBLIC_INTERFACE="br101"
+   FLAT_INTERFACE="eth0"
