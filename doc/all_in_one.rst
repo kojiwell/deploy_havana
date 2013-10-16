@@ -27,7 +27,7 @@ Create your ``setuprc`` file and modify it for your environment, and execute
 
 If everything's went fine, the machine would be rebooted at the end of the script. Examples of ``setuprc`` are given below.
 
-setuprc for 2NICs
+setuprc example for 2NICs
 -------------
 
 Here's the diagram of a machine with 2 NICs.::
@@ -55,7 +55,7 @@ Here's the diagram of a machine with 2 NICs.::
    +-------------------------------
     Internal/Admin Network
 
-The setuprc file becomes like this::
+The ``setuprc`` file becomes like this::
 
    # setuprc - configuration file for deploying OpenStack
 
@@ -73,7 +73,7 @@ The setuprc file becomes like this::
    PUBLIC_INTERFACE="eth1"
    FLAT_INTERFACE="eth0"
 
-setuprc for 1NIC
+setuprc example for 1NIC
 ------------
 
 Here's the diagram of a machine with 1 NIC.::
@@ -97,7 +97,7 @@ Here's the diagram of a machine with 1 NIC.::
      | Cinder Scheduler |     
      +------------------+          
 
-The setuprc file is like this::
+The ``setuprc`` file is like this::
 
    # setuprc - configuration file for deploying OpenStack
 
