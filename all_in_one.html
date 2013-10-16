@@ -95,11 +95,21 @@
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>First, update your /etc/hosts for your environment. If a hostname doesn&#8217;t exist,
 nova-network fails.</p>
-<p>And, become root user and download the installation scripts.:</p>
-<div class="highlight-python"><pre>su - root
-git clone https://github.com/kjtanaka/deploy_havana.git
-cd deploy_havana</pre>
-</div>
+<p>And, become root user and download the installation scripts.
+.. code-block:: bash</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">linenos:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<p>su - root
+git clone <a class="reference external" href="https://github.com/kjtanaka/deploy_havana.git">https://github.com/kjtanaka/deploy_havana.git</a>
+cd deploy_havana</p>
+</div></blockquote>
 <p>Create your setuprc file and modify it for your environment, and execute
 build_all_in_one.sh.1NIC example and 2NICs example are described bellow.:</p>
 <div class="highlight-python"><pre>cp setuprc_example_[1NIC/2NICs] setuprc
