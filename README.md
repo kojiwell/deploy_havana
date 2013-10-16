@@ -17,6 +17,6 @@ Step-by-step agile startup of OpenStack Havana with Ubuntu 12.04 LTS.
 
 **Day 7.** Setup Swift as the backend storage of Glance [not ready yet]
 
-**Day 8.** You better understand Open vSwitch before Neutron [not ready yet]
+**Day 8.** Better understand Open vSwitch before Neutron [not ready yet]
 
 **Day 9.** Setup Neutron. [not ready yet]
