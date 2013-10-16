@@ -9,23 +9,23 @@ Build All-in-One Node
 Installation
 ------------
 
-First, update your /etc/hosts for your environment. If a hostname doesn't exist,
-nova-network fails.
+First, you need to update ``/etc/hosts`` for your environment. If a hostname doesn't exist,
+nova-network fails starting.
 
-And, become root user and download the installation scripts.
-.. code-block:: bash
-   :linenos:
+Become root user and download the installation scripts.::
 
    su - root
    git clone https://github.com/kjtanaka/deploy_havana.git
    cd deploy_havana
 
-Create your setuprc file and modify it for your environment, and execute
-build_all_in_one.sh.1NIC example and 2NICs example are described bellow.::
+Create your ``setuprc`` file and modify it for your environment, and execute
+``build_all_in_one.sh``. Some examples of ``setuprc`` are given below.::
 
    cp setuprc_example_[1NIC/2NICs] setuprc
    vi setuprc
    bash -ex build_all_in_one.sh
+
+If everything's went fine, the machine would be rebooted at the end of the script. Examples of ``setuprc`` are given below.
 
 setuprc for 2NICs
 -------------
