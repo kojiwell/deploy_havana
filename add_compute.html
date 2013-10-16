@@ -74,7 +74,29 @@
             
   <div class="section" id="add-compute-node">
 <h1>Add Compute Node<a class="headerlink" href="#add-compute-node" title="Permalink to this headline">¶</a></h1>
-<p>This is a test.test.</p>
+<p>This is a test.test.:</p>
+<div class="highlight-python"><pre> Public Network
++--------------------------------------------------------------------------
+    |                                 |                                |
+    | eth1 [xxx.xxx.xxx.xxx/24]       | eth1 [xxx.xxx.xxx.xxx/24]      |
+  +-----------------+               +-----------------+              +-----
+  | All in One      |               | Compute Node 01 |              |
+  | =============== |               | =============== |              |
+  | Keystone        |               | Nova Compute    |              |
+  | Glance          |               | Nova Network    |              |
+  | Horizon         |               |                 |              |
+  | Nova API        |               |                 |              |
+  | Nova Scheduler  |               |                 |              |
+  | Nova Compute &lt;----[disable]     |                 |              |
+  | Nova Network    |               |                 |              |
+  | Nova Conductor  |               |                 |              |
+  +-----------------                 -----------------               +-----
+    | eth0 [xxx.xxx.xxx.xxx/24]       | eth0 [xxx.xxx.xxx.xxx/24]      |
+    |                                 |                                |
++--------------------------------------------------------------------------
+ Internal/Admin Network</pre>
+</div>
+<p>Test</p>
 </div>
 
 

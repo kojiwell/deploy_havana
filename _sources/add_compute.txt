@@ -6,4 +6,27 @@
 Add Compute Node
 ==========================================================
 
-This is a test.test.
+This is a test.test.::
+
+    Public Network
+   +--------------------------------------------------------------------------
+       |                                 |                                |
+       | eth1 [xxx.xxx.xxx.xxx/24]       | eth1 [xxx.xxx.xxx.xxx/24]      |
+     +-----------------+               +-----------------+              +-----
+     | All in One      |               | Compute Node 01 |              |
+     | =============== |               | =============== |              |
+     | Keystone        |               | Nova Compute    |              |
+     | Glance          |               | Nova Network    |              |
+     | Horizon         |               |                 |              |
+     | Nova API        |               |                 |              |
+     | Nova Scheduler  |               |                 |              |
+     | Nova Compute <----[disable]     |                 |              |
+     | Nova Network    |               |                 |              |
+     | Nova Conductor  |               |                 |              |
+     +-----------------                 -----------------               +-----
+       | eth0 [xxx.xxx.xxx.xxx/24]       | eth0 [xxx.xxx.xxx.xxx/24]      |
+       |                                 |                                |
+   +--------------------------------------------------------------------------
+    Internal/Admin Network
+
+Test
