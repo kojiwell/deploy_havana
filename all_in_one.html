@@ -47,6 +47,15 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Build All-in-One Node</a><ul>
+<li><a class="reference internal" href="#nics-example">2NICs example</a></li>
+<li><a class="reference internal" href="#nic-example">1NIC example</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
                         title="previous chapter">Simple Deploy OpenStack Havana</a></p>
@@ -81,29 +90,129 @@
             
   <div class="section" id="build-all-in-one-node">
 <h1>Build All-in-One Node<a class="headerlink" href="#build-all-in-one-node" title="Permalink to this headline">¶</a></h1>
-<p>This is a test.test.:</p>
-<div class="highlight-python"><pre> Public Network
-+-------------------------------
-    |
-    | eth1 [xxx.xxx.xxx.xxx/24]
-  +-----------------+
-  | All in One      |
-  | =============== |
-  | Keystone        |
-  | Glance          |
-  | Horizon         |
-  | Nova API        |
-  | Nova Scheduler  |
-  | Nova Compute    |
-  | Nova Network    |
-  | Nova Conductor  |
-  +-----------------+
-    | eth0 [xxx.xxx.xxx.xxx/24]
-    |
-+-------------------------------
- Internal/Admin Network</pre>
+<p>First, update your /etc/hosts for your environment. If a hostname doesn&#8217;t exist,
+nova-network fails.</p>
+<p>And, become root user and download the installation scripts.:</p>
+<div class="highlight-python"><pre>su - root
+git clone https://github.com/kjtanaka/deploy_havana.git
+cd deploy_havana</pre>
 </div>
-<p>Test.</p>
+<p>Create your setuprc file and modify it for your environment, and execute
+build_all_in_one.sh.1NIC example and 2NICs example are described bellow.:</p>
+<div class="highlight-python"><pre>bash -ex build_all_in_one.sh</pre>
+</div>
+<div class="section" id="nics-example">
+<h2>2NICs example<a class="headerlink" href="#nics-example" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div>Public Network</div></blockquote>
+<dl class="docutils">
+<dt>+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-</dt>
+<dd><blockquote class="first">
+<div><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">eth1 [123.123.123.123/24]</div>
+</div>
+</div></blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Keystone
+Glance
+Horizon
+Nova API
+Nova Scheduler
+Nova Compute
+Nova Network
+Nova Conductor
+Cinder API
+Cinder Scheduler</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="last">
+<div><div class="line-block">
+<div class="line">eth0 [192.168.100.1/24]</div>
+<div class="line"><br /></div>
+</div>
+</div></blockquote>
+</dd>
+<dt>+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-</dt>
+<dd>Internal/Admin Network</dd>
+</dl>
+</div></blockquote>
+<p>The setuprc file becomes like this:</p>
+<div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
+
+export PASSWORD='123ABCDefgh'
+export ADMIN_PASSWORD=$PASSWORD
+export SERVICE_PASSWORD=$PASSWORD
+export ENABLE_ENDPOINTS=1
+MYSQLPASS=$PASSWORD
+RABBIT_PASS=$PASSWORD
+export CONTROLLER_PUBLIC_ADDRESS="123.123.123.123"
+export CONTROLLER_ADMIN_ADDRESS="192.168.100.1"
+export CONTROLLER_INTERNAL_ADDRESS=$CONTROLLER_ADMIN_ADDRESS
+FIXED_RANGE="192.168.201.0/24"
+MYSQL_ACCESS="192.168.100.%"
+PUBLIC_INTERFACE="eth1"
+FLAT_INTERFACE="eth0"</pre>
+</div>
+</div>
+<div class="section" id="nic-example">
+<h2>1NIC example<a class="headerlink" href="#nic-example" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><blockquote>
+<div>Public Network</div></blockquote>
+<dl class="docutils">
+<dt>+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-</dt>
+<dd><blockquote class="first">
+<div><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">eth0 [123.123.123.123/24]</div>
+</div>
+</div></blockquote>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Keystone
+Glance
+Horizon
+Nova API
+Nova Scheduler
+Nova Compute
+Nova Network
+Nova Conductor
+Cinder API
+Cinder Scheduler</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</div></blockquote>
+<p>The setuprc file is like this:</p>
+<div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
+
+export PASSWORD='DoMakeSayThink'
+export ADMIN_PASSWORD=$PASSWORD
+export SERVICE_PASSWORD=$PASSWORD
+export ENABLE_ENDPOINTS=1
+MYSQLPASS=$PASSWORD
+RABBIT_PASS=$PASSWORD
+export CONTROLLER_PUBLIC_ADDRESS='123.123.123.123'
+export CONTROLLER_ADMIN_ADDRESS=$CONTROLLER_PUBLIC_ADDRESS
+export CONTROLLER_INTERNAL_ADDRESS=$CONTROLLER_ADMIN_ADDRESS
+FIXED_RANGE="192.168.201.0/24"
+MYSQL_ACCESS="123.123.123.%"
+PUBLIC_INTERFACE="br101"
+FLAT_INTERFACE="eth0"</pre>
+</div>
+</div>
 </div>
 
 
