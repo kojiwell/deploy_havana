@@ -26,7 +26,7 @@ ghphtml:
 	rm -fr _static
 	rm -fr _source
 	rm -fr *.html
-	cp -r $(DOC)/build/html/* .
+	cp -r $(DOC)/_build/html/* .
 
 ghpgit:
 	git add . _sources _static   
