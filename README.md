@@ -44,7 +44,7 @@ Multiple Compute Node
     | Horizon         |               |                 |              |
     | Nova API        |               |                 |              |
     | Nova Scheduler  |               |                 |              |
-    | Nova Compute    |               |                 |              |
+    | Nova Compute <----[disable]     |                 |              |
     | Nova Network    |               |                 |              |
     | Nova Conductor  |               |                 |              |
      -----------------                 -----------------                ---
