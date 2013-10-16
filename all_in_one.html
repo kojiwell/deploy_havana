@@ -50,8 +50,9 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Build All-in-One Node</a><ul>
-<li><a class="reference internal" href="#nics-example">2NICs example</a></li>
-<li><a class="reference internal" href="#nic-example">1NIC example</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#setuprc-for-2nics">setuprc for 2NICs</a></li>
+<li><a class="reference internal" href="#setuprc-for-1nic">setuprc for 1NIC</a></li>
 </ul>
 </li>
 </ul>
@@ -90,6 +91,8 @@
             
   <div class="section" id="build-all-in-one-node">
 <h1>Build All-in-One Node<a class="headerlink" href="#build-all-in-one-node" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>First, update your /etc/hosts for your environment. If a hostname doesn&#8217;t exist,
 nova-network fails.</p>
 <p>And, become root user and download the installation scripts.:</p>
@@ -99,10 +102,13 @@ cd deploy_havana</pre>
 </div>
 <p>Create your setuprc file and modify it for your environment, and execute
 build_all_in_one.sh.1NIC example and 2NICs example are described bellow.:</p>
-<div class="highlight-python"><pre>bash -ex build_all_in_one.sh</pre>
+<div class="highlight-python"><pre>cp setuprc_example_[1NIC/2NICs] setuprc
+vi setuprc
+bash -ex build_all_in_one.sh</pre>
 </div>
-<div class="section" id="nics-example">
-<h2>2NICs example<a class="headerlink" href="#nics-example" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="setuprc-for-2nics">
+<h2>setuprc for 2NICs<a class="headerlink" href="#setuprc-for-2nics" title="Permalink to this headline">¶</a></h2>
 <p>Here&#8217;s the diagram of a machine with 2 NICs.:</p>
 <div class="highlight-python"><pre> Public Network
 +-------------------------------
@@ -130,7 +136,7 @@ build_all_in_one.sh.1NIC example and 2NICs example are described bellow.:</p>
 <p>The setuprc file becomes like this:</p>
 <div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
 
-export PASSWORD='123ABCDefgh'
+export PASSWORD='1234ABCDefgh'
 export ADMIN_PASSWORD=$PASSWORD
 export SERVICE_PASSWORD=$PASSWORD
 export ENABLE_ENDPOINTS=1
@@ -145,8 +151,8 @@ PUBLIC_INTERFACE="eth1"
 FLAT_INTERFACE="eth0"</pre>
 </div>
 </div>
-<div class="section" id="nic-example">
-<h2>1NIC example<a class="headerlink" href="#nic-example" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setuprc-for-1nic">
+<h2>setuprc for 1NIC<a class="headerlink" href="#setuprc-for-1nic" title="Permalink to this headline">¶</a></h2>
 <p>Here&#8217;s the diagram of a machine with 1 NIC.:</p>
 <div class="highlight-python"><pre> Public Network
 +-------------------------------
@@ -170,7 +176,7 @@ FLAT_INTERFACE="eth0"</pre>
 <p>The setuprc file is like this:</p>
 <div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
 
-export PASSWORD='DoMakeSayThink'
+export PASSWORD='1234abcdEFGH'
 export ADMIN_PASSWORD=$PASSWORD
 export SERVICE_PASSWORD=$PASSWORD
 export ENABLE_ENDPOINTS=1
