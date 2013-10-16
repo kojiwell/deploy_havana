@@ -23,6 +23,8 @@ build_all_in_one.sh.1NIC example and 2NICs example are described bellow.::
 2NICs example
 -------------
 
+Here's the diagram of a machine with 2 NICs.::
+
     Public Network
    +-------------------------------
        |                          
@@ -67,6 +69,8 @@ The setuprc file becomes like this::
 1NIC example
 ------------
 
+Here's the diagram of a machine with 1 NIC.::
+
     Public Network
    +-------------------------------
        |                          
@@ -103,3 +107,5 @@ The setuprc file is like this::
    MYSQL_ACCESS="123.123.123.%"
    PUBLIC_INTERFACE="br101"
    FLAT_INTERFACE="eth0"
+
+

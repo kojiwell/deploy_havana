@@ -103,46 +103,30 @@ build_all_in_one.sh.1NIC example and 2NICs example are described bellow.:</p>
 </div>
 <div class="section" id="nics-example">
 <h2>2NICs example<a class="headerlink" href="#nics-example" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><blockquote>
-<div>Public Network</div></blockquote>
-<dl class="docutils">
-<dt>+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-</dt>
-<dd><blockquote class="first">
-<div><div class="line-block">
-<div class="line"><br /></div>
-<div class="line">eth1 [123.123.123.123/24]</div>
+<p>Here&#8217;s the diagram of a machine with 2 NICs.:</p>
+<div class="highlight-python"><pre> Public Network
++-------------------------------
+    |
+    | eth1 [123.123.123.123/24]
+  +------------------+
+  | host01           |
+  | ================ |
+  | Keystone         |
+  | Glance           |
+  | Horizon          |
+  | Nova API         |
+  | Nova Scheduler   |
+  | Nova Compute     |
+  | Nova Network     |
+  | Nova Conductor   |
+  | Cinder API       |
+  | Cinder Scheduler |
+  +------------------+
+    | eth0 [192.168.100.1/24]
+    |
++-------------------------------
+ Internal/Admin Network</pre>
 </div>
-</div></blockquote>
-<table border="1" class="docutils">
-<colgroup>
-<col width="100%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>Keystone
-Glance
-Horizon
-Nova API
-Nova Scheduler
-Nova Compute
-Nova Network
-Nova Conductor
-Cinder API
-Cinder Scheduler</td>
-</tr>
-</tbody>
-</table>
-<blockquote class="last">
-<div><div class="line-block">
-<div class="line">eth0 [192.168.100.1/24]</div>
-<div class="line"><br /></div>
-</div>
-</div></blockquote>
-</dd>
-<dt>+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-</dt>
-<dd>Internal/Admin Network</dd>
-</dl>
-</div></blockquote>
 <p>The setuprc file becomes like this:</p>
 <div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
 
@@ -163,38 +147,26 @@ FLAT_INTERFACE="eth0"</pre>
 </div>
 <div class="section" id="nic-example">
 <h2>1NIC example<a class="headerlink" href="#nic-example" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><blockquote>
-<div>Public Network</div></blockquote>
-<dl class="docutils">
-<dt>+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-</dt>
-<dd><blockquote class="first">
-<div><div class="line-block">
-<div class="line"><br /></div>
-<div class="line">eth0 [123.123.123.123/24]</div>
+<p>Here&#8217;s the diagram of a machine with 1 NIC.:</p>
+<div class="highlight-python"><pre> Public Network
++-------------------------------
+    |
+    | eth0 [123.123.123.123/24]
+  +------------------+
+  | host01           |
+  | ================ |
+  | Keystone         |
+  | Glance           |
+  | Horizon          |
+  | Nova API         |
+  | Nova Scheduler   |
+  | Nova Compute     |
+  | Nova Network     |
+  | Nova Conductor   |
+  | Cinder API       |
+  | Cinder Scheduler |
+  +------------------+</pre>
 </div>
-</div></blockquote>
-<table border="1" class="last docutils">
-<colgroup>
-<col width="100%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>Keystone
-Glance
-Horizon
-Nova API
-Nova Scheduler
-Nova Compute
-Nova Network
-Nova Conductor
-Cinder API
-Cinder Scheduler</td>
-</tr>
-</tbody>
-</table>
-</dd>
-</dl>
-</div></blockquote>
 <p>The setuprc file is like this:</p>
 <div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
 
