@@ -12,7 +12,9 @@ Installation
 First, update your /etc/hosts for your environment. If a hostname doesn't exist,
 nova-network fails.
 
-And, become root user and download the installation scripts.::
+And, become root user and download the installation scripts.
+.. code-block:: bash
+   :linenos:
 
    su - root
    git clone https://github.com/kjtanaka/deploy_havana.git
