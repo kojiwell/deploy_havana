@@ -1,7 +1,7 @@
 OpenStack Havana Deployiment Scripts
 =============
 
-Step-by-step agile start of OpenStack Havana.
+Step-by-step agile startup of OpenStack Havana.
 
 1. [Build all-in-one node.](http://kjtanaka.github.io/deploy_havana/all_in_one.html)
 2. [Add nova compute nodes.](http://kjtanaka.github.io/deploy_havana/add_compute.html)
