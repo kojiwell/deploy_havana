@@ -1,55 +1,10 @@
 OpenStack Havana Deployiment Scripts
 =============
 
-Not ready yet...
+Here's step-by-step small start OpenStack Havana.
 
-
-Buid All-in-One Node
---------------------
-```
-   Public Network
-  +-------------------------------
-      |                          
-      | eth1 [xxx.xxx.xxx.xxx/24]
-    +-----------------           
-    | All in One      |          
-    | =============== |          
-    | Keystone        |          
-    | Glance          |          
-    | Horizon         |          
-    | Nova API        |          
-    | Nova Scheduler  |          
-    | Nova Compute    |          
-    | Nova Network    |          
-    | Nova Conductor  |          
-    +-----------------           
-      | eth0 [xxx.xxx.xxx.xxx/24]
-      |                          
-  +-------------------------------
-   Internal/Admin Network
-```
-
-Add Compute Nodes
------------------
-```
-   Public Network
-  +--------------------------------------------------------------------------
-      |                                 |                                |
-      | eth1 [xxx.xxx.xxx.xxx/24]       | eth1 [xxx.xxx.xxx.xxx/24]      |
-    +-----------------+               +-----------------+              +-----
-    | All in One      |               | Compute Node 01 |              |
-    | =============== |               | =============== |              |
-    | Keystone        |               | Nova Compute    |              |
-    | Glance          |               | Nova Network    |              |
-    | Horizon         |               |                 |              |
-    | Nova API        |               |                 |              |
-    | Nova Scheduler  |               |                 |              |
-    | Nova Compute <----[disable]     |                 |              |
-    | Nova Network    |               |                 |              |
-    | Nova Conductor  |               |                 |              |
-    +-----------------                 -----------------               +-----
-      | eth0 [xxx.xxx.xxx.xxx/24]       | eth0 [xxx.xxx.xxx.xxx/24]      |
-      |                                 |                                |
-  +--------------------------------------------------------------------------
-   Internal/Admin Network
-```
+1. [Build all-in-one node.](http://kjtanaka.github.io/deploy_havana/all_in_one.html)
+2. [Add nova compute nodes.](http://kjtanaka.github.io/deploy_havana/add_compute.html)
+3. Add cinder volume nodes.
+4. Make Horizon Secure (SSL)
+5. Make Keystone Secure (SSL)
