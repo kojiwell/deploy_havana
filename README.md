@@ -4,8 +4,8 @@ OpenStack Havana Deployiment Scripts
 Not ready yet...
 
 
-All in One
-----------
+Buid All-in-One Node
+--------------------
 ```
    Public Network
   --------------------------------
@@ -29,8 +29,8 @@ All in One
    Internal/Admin Network
 ```
 
-Multiple Compute Node
---------------------
+Add Compute Nodes
+-----------------
 ```
    Public Network
   -------------------------------------------------------------------------
