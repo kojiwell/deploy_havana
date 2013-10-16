@@ -6,6 +6,9 @@
 Build All-in-One Node
 ==========================================================
 
+Installation
+------------
+
 First, update your /etc/hosts for your environment. If a hostname doesn't exist,
 nova-network fails.
 
@@ -18,9 +21,11 @@ And, become root user and download the installation scripts.::
 Create your setuprc file and modify it for your environment, and execute
 build_all_in_one.sh.1NIC example and 2NICs example are described bellow.::
 
+   cp setuprc_example_[1NIC/2NICs] setuprc
+   vi setuprc
    bash -ex build_all_in_one.sh
 
-2NICs example
+setuprc for 2NICs
 -------------
 
 Here's the diagram of a machine with 2 NICs.::
@@ -52,7 +57,7 @@ The setuprc file becomes like this::
 
    # setuprc - configuration file for deploying OpenStack
 
-   export PASSWORD='123ABCDefgh'
+   export PASSWORD='1234ABCDefgh'
    export ADMIN_PASSWORD=$PASSWORD
    export SERVICE_PASSWORD=$PASSWORD
    export ENABLE_ENDPOINTS=1
@@ -66,7 +71,7 @@ The setuprc file becomes like this::
    PUBLIC_INTERFACE="eth1"
    FLAT_INTERFACE="eth0"
 
-1NIC example
+setuprc for 1NIC
 ------------
 
 Here's the diagram of a machine with 1 NIC.::
@@ -94,7 +99,7 @@ The setuprc file is like this::
 
    # setuprc - configuration file for deploying OpenStack
 
-   export PASSWORD='DoMakeSayThink'
+   export PASSWORD='1234abcdEFGH'
    export ADMIN_PASSWORD=$PASSWORD
    export SERVICE_PASSWORD=$PASSWORD
    export ENABLE_ENDPOINTS=1
