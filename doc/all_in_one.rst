@@ -9,10 +9,10 @@ Build All-in-One Node
 Installation
 ------------
 
-First, you need to update ``/etc/hosts`` for your environment. If a hostname doesn't exist,
-nova-network fails starting.
+First, you need to update ``/etc/hosts`` for your environment. If your hostname is not resolvable,
+``nova-network`` fails to start.
 
-Become root user and download the installation scripts.::
+Switch to ``root`` user, and download the installation scripts.::
 
    su - root
    git clone https://github.com/kjtanaka/deploy_havana.git
