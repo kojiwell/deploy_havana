@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Simple Deployment of OpenStack Havana documentation build configuration file, created by
-# sphinx-quickstart on Wed Oct 16 14:46:31 2013.
+# Simple Deploy OpenStack Havana documentation build configuration file, created by
+# sphinx-quickstart on Wed Oct 16 15:15:10 2013.
 #
 # This file is execfile()d with the current directory set to its containing dir.
 #
@@ -12,7 +12,6 @@
 # serve to show the default.
 
 import sys, os
-import sphinx_bootstrap_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -41,7 +40,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Simple Deployment of OpenStack Havana'
+project = u'Simple Deploy OpenStack Havana'
 copyright = u'2013, Koji Tanaka'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -92,8 +91,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#html_theme = 'default'
-html_theme = 'bootstrap'
+html_theme = 'default'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -101,7 +99,7 @@ html_theme = 'bootstrap'
 #html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+#html_theme_path = []
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -166,7 +164,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'SimpleDeploymentofOpenStackHavanadoc'
+htmlhelp_basename = 'SimpleDeployOpenStackHavanadoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -185,7 +183,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'SimpleDeploymentofOpenStackHavana.tex', u'Simple Deployment of OpenStack Havana Documentation',
+  ('index', 'SimpleDeployOpenStackHavana.tex', u'Simple Deploy OpenStack Havana Documentation',
    u'Koji Tanaka', 'manual'),
 ]
 
@@ -215,7 +213,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'simpledeploymentofopenstackhavana', u'Simple Deployment of OpenStack Havana Documentation',
+    ('index', 'simpledeployopenstackhavana', u'Simple Deploy OpenStack Havana Documentation',
      [u'Koji Tanaka'], 1)
 ]
 
@@ -229,8 +227,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'SimpleDeploymentofOpenStackHavana', u'Simple Deployment of OpenStack Havana Documentation',
-   u'Koji Tanaka', 'SimpleDeploymentofOpenStackHavana', 'One line description of project.',
+  ('index', 'SimpleDeployOpenStackHavana', u'Simple Deploy OpenStack Havana Documentation',
+   u'Koji Tanaka', 'SimpleDeployOpenStackHavana', 'One line description of project.',
    'Miscellaneous'),
 ]
 
