@@ -25,8 +25,9 @@ Create your ``setuprc`` file and modify it for your environment, and execute
    vi setuprc
    bash -ex build_all_in_one.sh
 
-If everything's went fine, the machine would be rebooted at the end of the script. Examples of ``setuprc`` are given below.
+Examples of ``setuprc`` are given below.
 
 * `setuprc example for 2NICs <http://kjtanaka.github.io/deploy_havana/setuprc_2nics.html>`_
 * `setuprc example for 1NIC <http://kjtanaka.github.io/deploy_havana/setuprc_1nic.html>`_
 
+If the Bash script finished fine, your machine would be rebooted at the end of the script. So wait until it becomes online.
