@@ -9,10 +9,10 @@ Build All-in-One Node
 This is a test.test.::
 
     Public Network
-   --------------------------------
+   +-------------------------------
        |                          
        | eth1 [xxx.xxx.xxx.xxx/24]
-      -----------------           
+     +-----------------+          
      | All in One      |          
      | =============== |          
      | Keystone        |          
@@ -23,10 +23,10 @@ This is a test.test.::
      | Nova Compute    |          
      | Nova Network    |          
      | Nova Conductor  |          
-      -----------------           
+     +-----------------+          
        | eth0 [xxx.xxx.xxx.xxx/24]
        |                          
-   --------------------------------
+   +-------------------------------
     Internal/Admin Network
 
 Test.
