@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Build All-in-One Node
+Build All-in-One Node Anyway.
 ==========================================================
 
-Installation
+Quick Install by a Bash Script.
 ------------
 
 First, you need to update ``/etc/hosts`` for your environment. If your hostname is not resolvable,
