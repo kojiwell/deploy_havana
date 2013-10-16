@@ -51,8 +51,6 @@
   <ul>
 <li><a class="reference internal" href="#">Build All-in-One Node</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#setuprc-example-for-2nics">setuprc example for 2NICs</a></li>
-<li><a class="reference internal" href="#setuprc-example-for-1nic">setuprc example for 1NIC</a></li>
 </ul>
 </li>
 </ul>
@@ -107,90 +105,10 @@ vi setuprc
 bash -ex build_all_in_one.sh</pre>
 </div>
 <p>If everything&#8217;s went fine, the machine would be rebooted at the end of the script. Examples of <tt class="docutils literal"><span class="pre">setuprc</span></tt> are given below.</p>
-</div>
-<div class="section" id="setuprc-example-for-2nics">
-<h2>setuprc example for 2NICs<a class="headerlink" href="#setuprc-example-for-2nics" title="Permalink to this headline">¶</a></h2>
-<p>Here&#8217;s the diagram of a machine with 2 NICs.:</p>
-<div class="highlight-python"><pre> Public Network
-+-------------------------------
-    |
-    | eth1 [123.123.123.123/24]
-  +------------------+
-  | host01           |
-  | ================ |
-  | Keystone         |
-  | Glance           |
-  | Horizon          |
-  | Nova API         |
-  | Nova Scheduler   |
-  | Nova Compute     |
-  | Nova Network     |
-  | Nova Conductor   |
-  | Cinder API       |
-  | Cinder Scheduler |
-  +------------------+
-    | eth0 [192.168.100.1/24]
-    |
-+-------------------------------
- Internal/Admin Network</pre>
-</div>
-<p>The <tt class="docutils literal"><span class="pre">setuprc</span></tt> file becomes like this:</p>
-<div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
-
-export PASSWORD='1234ABCDefgh'
-export ADMIN_PASSWORD=$PASSWORD
-export SERVICE_PASSWORD=$PASSWORD
-export ENABLE_ENDPOINTS=1
-MYSQLPASS=$PASSWORD
-RABBIT_PASS=$PASSWORD
-export CONTROLLER_PUBLIC_ADDRESS="123.123.123.123"
-export CONTROLLER_ADMIN_ADDRESS="192.168.100.1"
-export CONTROLLER_INTERNAL_ADDRESS=$CONTROLLER_ADMIN_ADDRESS
-FIXED_RANGE="192.168.201.0/24"
-MYSQL_ACCESS="192.168.100.%"
-PUBLIC_INTERFACE="eth1"
-FLAT_INTERFACE="eth0"</pre>
-</div>
-</div>
-<div class="section" id="setuprc-example-for-1nic">
-<h2>setuprc example for 1NIC<a class="headerlink" href="#setuprc-example-for-1nic" title="Permalink to this headline">¶</a></h2>
-<p>Here&#8217;s the diagram of a machine with 1 NIC.:</p>
-<div class="highlight-python"><pre> Public Network
-+-------------------------------
-    |
-    | eth0 [123.123.123.123/24]
-  +------------------+
-  | host01           |
-  | ================ |
-  | Keystone         |
-  | Glance           |
-  | Horizon          |
-  | Nova API         |
-  | Nova Scheduler   |
-  | Nova Compute     |
-  | Nova Network     |
-  | Nova Conductor   |
-  | Cinder API       |
-  | Cinder Scheduler |
-  +------------------+</pre>
-</div>
-<p>The <tt class="docutils literal"><span class="pre">setuprc</span></tt> file is like this:</p>
-<div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
-
-export PASSWORD='1234abcdEFGH'
-export ADMIN_PASSWORD=$PASSWORD
-export SERVICE_PASSWORD=$PASSWORD
-export ENABLE_ENDPOINTS=1
-MYSQLPASS=$PASSWORD
-RABBIT_PASS=$PASSWORD
-export CONTROLLER_PUBLIC_ADDRESS='123.123.123.123'
-export CONTROLLER_ADMIN_ADDRESS=$CONTROLLER_PUBLIC_ADDRESS
-export CONTROLLER_INTERNAL_ADDRESS=$CONTROLLER_ADMIN_ADDRESS
-FIXED_RANGE="192.168.201.0/24"
-MYSQL_ACCESS="123.123.123.%"
-PUBLIC_INTERFACE="br101"
-FLAT_INTERFACE="eth0"</pre>
-</div>
+<ul class="simple">
+<li>[setuprc example for 2NICs](setuprc_2nics.html)</li>
+<li>[setuprc example for 1NIC](setuprc_1nic.html)</li>
+</ul>
 </div>
 </div>
 

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Simple Deploy OpenStack Havana &mdash; Simple Deploy OpenStack Havana 0.1 documentation</title>
+    <title>setuprc example for 1NIC &mdash; Simple Deploy OpenStack Havana 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Simple Deploy OpenStack Havana 0.1 documentation" href="#" />
-    <link rel="next" title="Build All-in-One Node" href="all_in_one.html" /> 
+    <link rel="top" title="Simple Deploy OpenStack Havana 0.1 documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,20 +34,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="all_in_one.html" title="Build All-in-One Node"
-             accesskey="N">next</a> |</li>
-        <li><a href="#">Simple Deploy OpenStack Havana 0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Simple Deploy OpenStack Havana 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h4>Next topic</h4>
-  <p class="topless"><a href="all_in_one.html"
-                        title="next chapter">Build All-in-One Node</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/index.txt"
+    <li><a href="_sources/setuprc_1nic.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -72,17 +65,44 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="simple-deploy-openstack-havana">
-<h1>Simple Deploy OpenStack Havana<a class="headerlink" href="#simple-deploy-openstack-havana" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="all_in_one.html">Build All-in-One Node</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="all_in_one.html#installation">Installation</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="add_compute.html">Add Compute Node</a></li>
-</ul>
+  <div class="section" id="setuprc-example-for-1nic">
+<h1>setuprc example for 1NIC<a class="headerlink" href="#setuprc-example-for-1nic" title="Permalink to this headline">¶</a></h1>
+<p>Here&#8217;s the diagram of a machine with 1 NIC.:</p>
+<div class="highlight-python"><pre> Public Network
++-------------------------------
+    |
+    | eth0 [123.123.123.123/24]
+  +------------------+
+  | host01           |
+  | ================ |
+  | Keystone         |
+  | Glance           |
+  | Horizon          |
+  | Nova API         |
+  | Nova Scheduler   |
+  | Nova Compute     |
+  | Nova Network     |
+  | Nova Conductor   |
+  | Cinder API       |
+  | Cinder Scheduler |
+  +------------------+</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">setuprc</span></tt> file is like this:</p>
+<div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
+
+export PASSWORD='1234abcdEFGH'
+export ADMIN_PASSWORD=$PASSWORD
+export SERVICE_PASSWORD=$PASSWORD
+export ENABLE_ENDPOINTS=1
+MYSQLPASS=$PASSWORD
+RABBIT_PASS=$PASSWORD
+export CONTROLLER_PUBLIC_ADDRESS='123.123.123.123'
+export CONTROLLER_ADMIN_ADDRESS=$CONTROLLER_PUBLIC_ADDRESS
+export CONTROLLER_INTERNAL_ADDRESS=$CONTROLLER_ADMIN_ADDRESS
+FIXED_RANGE="192.168.201.0/24"
+MYSQL_ACCESS="123.123.123.%"
+PUBLIC_INTERFACE="br101"
+FLAT_INTERFACE="eth0"</pre>
 </div>
 </div>
 
@@ -98,10 +118,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="all_in_one.html" title="Build All-in-One Node"
-             >next</a> |</li>
-        <li><a href="#">Simple Deploy OpenStack Havana 0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Simple Deploy OpenStack Havana 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
