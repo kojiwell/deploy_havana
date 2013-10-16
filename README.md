@@ -5,7 +5,7 @@ OpenStack Havana Deployiment Scripts
    Public Network
   ---------------------------------
       |
-      | eth1 [149.165.146.118/24]
+      | eth1 [xxx.xxx.xxx.xxx/24]
      -----------------
     | Keystone        |
     | Glance          |
@@ -16,7 +16,7 @@ OpenStack Havana Deployiment Scripts
     | Nova Conductor  |
     | Horizon         |
      -----------------
-      | eth0 [172.29.200.118/22]
+      | eth0 [xxx.xxx.xxx.xxx/24]
       |
   ---------------------------------
    Internal/Admin Network
