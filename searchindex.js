@@ -1,1 +1,1 @@
-Search.setIndex({objects:{},terms:{index:0,search:0,havana:0,welcom:0,modul:0,deploi:0,indic:0,content:0,tabl:0,openstack:0,document:0,simpl:0,page:0},objtypes:{},titles:["Welcome to Simple Deploy OpenStack Havana&#8217;s documentation!"],objnames:{},filenames:["index"]})
+Search.setIndex({objects:{},terms:{node:1,all:1,havana:0,content:0,build:1,thi:1,deploi:0,test:1,openstack:0,simpl:0},objtypes:{},titles:["Simple Deploy OpenStack Havana","Build All-in-One Node"],objnames:{},filenames:["index","all_in_one"]})
