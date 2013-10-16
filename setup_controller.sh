@@ -277,13 +277,10 @@ volume_api_class=nova.volume.cinder.API
 osapi_volume_listen_port=5900
 NOVACONF
 nova-manage db sync
-service nova-api restart
-service nova-cert restart
-service nova-consoleauth restart
-service nova-scheduler restart
-service nova-novncproxy restart
+for proc in api cert consoleauth scheduler novncproxy; do
+    service nova-$proc restart
+done
 }
-
 
 #=============================================================================
 # OpenStack Network Service (Cloud Controller)
