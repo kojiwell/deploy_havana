@@ -9,7 +9,7 @@ Build All-in-One Node Anyway.
 Quick Installation by Bash Script.
 ------------
 
-First, you need to update ``/etc/hosts`` for your environment. If your hostname is not resolvable,
+First of all, you need to update ``/etc/hosts`` for your environment. If your hostname is not resolvable,
 ``nova-network`` fails to start.
 
 Switch to ``root`` user, and download the installation scripts.::
