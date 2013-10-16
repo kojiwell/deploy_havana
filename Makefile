@@ -20,7 +20,7 @@ pages: ghphtml ghpgit
 ghphtml:
 	cd /tmp
 	rm -rf $(DIR)
-	cd /tmp; git clone git://github.com/cloudmesh/$(PROJECT).git
+	cd /tmp; git clone git://github.com/kjtanaka/$(PROJECT).git
 	cp $(DIR)/Makefile .
 	cd $(DOC); ls; make html
 	rm -fr _static
