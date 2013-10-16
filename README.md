@@ -1,4 +1,4 @@
-Agile Startup of OpenStack Havana
+OpenStack Havana Agile Startup
 =============
 
 Step-by-step agile startup of OpenStack Havana with Ubuntu 12.04 LTS.

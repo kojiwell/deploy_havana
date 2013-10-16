@@ -41,7 +41,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Agile Startup of OpenStack Havana'
+project = u'OpenStack Havana Agile Startup'
 copyright = u'2013, Koji Tanaka'
 
 # The version info for the project you're documenting, acts as replacement for

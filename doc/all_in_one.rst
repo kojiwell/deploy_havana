@@ -6,7 +6,7 @@
 Build All-in-One Node Anyway.
 ==========================================================
 
-Quick Install by a Bash Script.
+Quick Installation by Bash Script.
 ------------
 
 First, you need to update ``/etc/hosts`` for your environment. If your hostname is not resolvable,
