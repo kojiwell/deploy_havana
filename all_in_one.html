@@ -51,8 +51,8 @@
   <ul>
 <li><a class="reference internal" href="#">Build All-in-One Node</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#setuprc-for-2nics">setuprc for 2NICs</a></li>
-<li><a class="reference internal" href="#setuprc-for-1nic">setuprc for 1NIC</a></li>
+<li><a class="reference internal" href="#setuprc-example-for-2nics">setuprc example for 2NICs</a></li>
+<li><a class="reference internal" href="#setuprc-example-for-1nic">setuprc example for 1NIC</a></li>
 </ul>
 </li>
 </ul>
@@ -108,8 +108,8 @@ bash -ex build_all_in_one.sh</pre>
 </div>
 <p>If everything&#8217;s went fine, the machine would be rebooted at the end of the script. Examples of <tt class="docutils literal"><span class="pre">setuprc</span></tt> are given below.</p>
 </div>
-<div class="section" id="setuprc-for-2nics">
-<h2>setuprc for 2NICs<a class="headerlink" href="#setuprc-for-2nics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setuprc-example-for-2nics">
+<h2>setuprc example for 2NICs<a class="headerlink" href="#setuprc-example-for-2nics" title="Permalink to this headline">¶</a></h2>
 <p>Here&#8217;s the diagram of a machine with 2 NICs.:</p>
 <div class="highlight-python"><pre> Public Network
 +-------------------------------
@@ -134,7 +134,7 @@ bash -ex build_all_in_one.sh</pre>
 +-------------------------------
  Internal/Admin Network</pre>
 </div>
-<p>The setuprc file becomes like this:</p>
+<p>The <tt class="docutils literal"><span class="pre">setuprc</span></tt> file becomes like this:</p>
 <div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
 
 export PASSWORD='1234ABCDefgh'
@@ -152,8 +152,8 @@ PUBLIC_INTERFACE="eth1"
 FLAT_INTERFACE="eth0"</pre>
 </div>
 </div>
-<div class="section" id="setuprc-for-1nic">
-<h2>setuprc for 1NIC<a class="headerlink" href="#setuprc-for-1nic" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setuprc-example-for-1nic">
+<h2>setuprc example for 1NIC<a class="headerlink" href="#setuprc-example-for-1nic" title="Permalink to this headline">¶</a></h2>
 <p>Here&#8217;s the diagram of a machine with 1 NIC.:</p>
 <div class="highlight-python"><pre> Public Network
 +-------------------------------
@@ -174,7 +174,7 @@ FLAT_INTERFACE="eth0"</pre>
   | Cinder Scheduler |
   +------------------+</pre>
 </div>
-<p>The setuprc file is like this:</p>
+<p>The <tt class="docutils literal"><span class="pre">setuprc</span></tt> file is like this:</p>
 <div class="highlight-python"><pre># setuprc - configuration file for deploying OpenStack
 
 export PASSWORD='1234abcdEFGH'
