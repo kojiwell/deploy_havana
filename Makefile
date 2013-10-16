@@ -23,14 +23,14 @@ ghphtml:
 	cd /tmp; git clone git://github.com/kjtanaka/$(PROJECT).git
 	cp $(DIR)/Makefile .
 	cd $(DOC); ls; make html
-	rm -fr _static
-	rm -fr _source
-	rm -fr *.html
+	rm -rf _static
+	rm -rf _source
+	rm -rf *.html
 	cp -r $(DOC)/_build/html/* .
 
 ghpgit:
 	git add . _sources _static   
-	git commit -a -m "updating the github pages"
+	git commit -am "updating the github pages"
 	git push
 	git checkout master
-
+	git branch
