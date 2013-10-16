@@ -1,6 +1,8 @@
 OpenStack Havana Deployiment Scripts
 =============
 
+Not ready yet...
+
 ```
    Public Network
   ---------------------------------
