@@ -25,3 +25,14 @@ Sphinx Doc
 ----------
 The Sphinx Doc is here `<http://kjtanaka.github.io/havana_startup/>`_. Which is the same as above, 
 but probably looks better organized.
+
+Script Change Log
+-----------------
+* The all-in-one bash script was originally written by Akira Yoshiyama, under Apache License 2.0, 
+  as a single node installation for beginers to try Folsom version.
+* I forked it and,
+  * Changed the messaging system from QPID to RabbitMQ.
+  * Added script for Cinder configration.
+  * Made another script for adding more Nova compute nodes.
+  * Modified for Grizzly version.
+  * Modified for Havana version.
