@@ -193,7 +193,7 @@ rabbit_userid=nova
 rabbit_password=$RABBIT_PASS
 
 # DATABASE
-sql_connection=mysql://openstack:$MYSQLPASS@$CONTROLLER_INTERNAL_ADDRESS/nova
+sql_connection=mysql://openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS/nova
 
 #use cinder
 enabled_apis=ec2,osapi_compute,metadata
@@ -220,7 +220,7 @@ rabbit_userid=nova
 rabbit_password=$RABBIT_PASS
 
 # MYSQL
-sql_connection = mysql://openstack:$MYSQLPASS@$CONTROLLER_INTERNAL_ADDRESS/cinder
+sql_connection = mysql://openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS/cinder
 EOF
 
 CONF=/etc/nova/api-paste.ini
@@ -235,7 +235,7 @@ sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e 's/%SERVICE_TENANT_NAME%/service/' \
     -e 's/%SERVICE_USER%/glance/' \
     -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
-    -e "s#^sql_connection *=.*#sql_connection = mysql://openstack:$MYSQLPASS@$CONTROLLER_INTERNAL_ADDRESS/glance#" \
+    -e "s#^sql_connection *=.*#sql_connection = mysql://openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS/glance#" \
     -e 's[^#* *config_file *=.*[config_file = /etc/glance/glance-api-paste.ini[' \
     -e 's/^#*flavor *=.*/flavor = keystone/' \
     -e 's/^notifier_strategy *=.*/notifier_strategy = rabbit/' \
@@ -252,7 +252,7 @@ sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e 's/%SERVICE_TENANT_NAME%/service/' \
     -e 's/%SERVICE_USER%/glance/' \
     -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
-    -e "s/^sql_connection *=.*/sql_connection = mysql:\/\/openstack:$MYSQLPASS@$CONTROLLER_INTERNAL_ADDRESS\/glance/" \
+    -e "s/^sql_connection *=.*/sql_connection = mysql:\/\/openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS\/glance/" \
     -e 's/^#* *config_file *=.*/config_file = \/etc\/glance\/glance-registry-paste.ini/' \
     -e 's/^#*flavor *=.*/flavor=keystone/' \
     -e "s/127.0.0.1/$CONTROLLER_PUBLIC_ADDRESS/" \
@@ -260,7 +260,7 @@ sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     $CONF.orig > $CONF
 
 CONF=/etc/keystone/keystone.conf
-sed -e "s/^#*connection *=.*/connection = mysql:\/\/openstack:$MYSQLPASS@$CONTROLLER_INTERNAL_ADDRESS\/keystone/" \
+sed -e "s/^#*connection *=.*/connection = mysql:\/\/openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS\/keystone/" \
     -e "s/^#* *admin_token *=.*/admin_token = $ADMIN_PASSWORD/" \
     $CONF.orig > $CONF
 
@@ -290,7 +290,7 @@ rabbitmqctl delete_user guest
 ## Modify MySQL configuration
 ##############################################################################
 
-mysqladmin -u root password $MYSQLPASS
+mysqladmin -u root password $MYSQL_PASS
 /sbin/stop mysql
 
 CONF=/etc/mysql/my.cnf
@@ -305,7 +305,7 @@ sleep 5
 ## Create MySQL accounts and databases of Nova, Glance, Keystone and Cinder
 ##############################################################################
 
-cat << EOF | /usr/bin/mysql -uroot -p$MYSQLPASS
+cat << EOF | /usr/bin/mysql -uroot -p$MYSQL_PASS
 DROP DATABASE IF EXISTS keystone;
 DROP DATABASE IF EXISTS glance;
 DROP DATABASE IF EXISTS nova;
@@ -316,18 +316,18 @@ CREATE DATABASE glance;
 CREATE DATABASE nova;
 CREATE DATABASE cinder;
 CREATE DATABASE horizon;
-GRANT ALL ON keystone.* TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON glance.*   TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON nova.*     TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON cinder.*   TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON keystone.* TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON glance.*   TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON nova.*     TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON cinder.*   TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON keystone.* TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON glance.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON nova.*     TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON cinder.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQLPASS';
+GRANT ALL ON keystone.* TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON glance.*   TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON nova.*     TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON cinder.*   TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON keystone.* TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON glance.*   TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON nova.*     TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON cinder.*   TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON keystone.* TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON glance.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON nova.*     TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON cinder.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
 EOF
 
 ##############################################################################
