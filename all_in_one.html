@@ -50,7 +50,8 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Build All-in-One Node Anyway.</a><ul>
-<li><a class="reference internal" href="#quick-installation-by-bash-script">Quick Installation by Bash Script.</a></li>
+<li><a class="reference internal" href="#quick-installation-by-bash-script">Quick Installation by Bash Script</a></li>
+<li><a class="reference internal" href="#boot-your-first-instance-and-feel-it">Boot Your First Instance and Feel It</a></li>
 </ul>
 </li>
 </ul>
@@ -90,26 +91,29 @@
   <div class="section" id="build-all-in-one-node-anyway">
 <h1>Build All-in-One Node Anyway.<a class="headerlink" href="#build-all-in-one-node-anyway" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="quick-installation-by-bash-script">
-<h2>Quick Installation by Bash Script.<a class="headerlink" href="#quick-installation-by-bash-script" title="Permalink to this headline">¶</a></h2>
+<h2>Quick Installation by Bash Script<a class="headerlink" href="#quick-installation-by-bash-script" title="Permalink to this headline">¶</a></h2>
 <p>First of all, you need to update <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> for your environment. If your hostname is not resolvable,
 <tt class="docutils literal"><span class="pre">nova-network</span></tt> fails to start.</p>
-<p>Switch to <tt class="docutils literal"><span class="pre">root</span></tt> user, and download the installation scripts.:</p>
+<p>Switch to <tt class="docutils literal"><span class="pre">root</span></tt> user, and download the bash script.:</p>
 <div class="highlight-python"><pre>su - root
 git clone https://github.com/kjtanaka/deploy_havana.git
 cd deploy_havana</pre>
 </div>
-<p>Create your <tt class="docutils literal"><span class="pre">setuprc</span></tt> file and modify it for your environment, and execute
-<tt class="docutils literal"><span class="pre">build_all_in_one.sh</span></tt>. Some examples of <tt class="docutils literal"><span class="pre">setuprc</span></tt> are given below.:</p>
+<p>Create and modify your <tt class="docutils literal"><span class="pre">setuprc</span></tt> file, and execute <tt class="docutils literal"><span class="pre">build_all_in_one.sh</span></tt>.
+Two examples of <tt class="docutils literal"><span class="pre">setuprc</span></tt> are given below.:</p>
 <div class="highlight-python"><pre>cp setuprc_example_[1NIC/2NICs] setuprc
 vi setuprc
 bash -ex build_all_in_one.sh</pre>
 </div>
-<p>Examples of <tt class="docutils literal"><span class="pre">setuprc</span></tt> are given below.</p>
 <ul class="simple">
 <li><a class="reference external" href="http://kjtanaka.github.io/deploy_havana/setuprc_2nics.html">setuprc example for 2NICs</a></li>
 <li><a class="reference external" href="http://kjtanaka.github.io/deploy_havana/setuprc_1nic.html">setuprc example for 1NIC</a></li>
 </ul>
-<p>If the Bash script finished fine, your machine would be rebooted at the end of the script. So wait until it becomes online.</p>
+<p>If the bash script finished fine, your machine would be rebooted at the end of the script.
+So wait until it becomes online.</p>
+</div>
+<div class="section" id="boot-your-first-instance-and-feel-it">
+<h2>Boot Your First Instance and Feel It<a class="headerlink" href="#boot-your-first-instance-and-feel-it" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
