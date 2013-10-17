@@ -215,7 +215,13 @@ source admin_credential</pre>
 <div class="highlight-python"><pre>nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001</pre>
 </div>
 <p>Check the status of instance.</p>
-<div class="highlight-python"><pre>nova list</pre>
+<div class="highlight-python"><pre>nova list
+
++--------------------------------------+-------+--------+------------+-------------+-----------------------+
+| ID                                   | Name  | Status | Task State | Power State | Networks              |
++--------------------------------------+-------+--------+------------+-------------+-----------------------+
+| a94c8354-b2fb-432e-8ff2-d98e30b50162 | vm001 | ACTIVE | None       | Running     | private=192.168.21.2  |
++--------------------------------------+-------+--------+------------+-------------+---------- ------------+</pre>
 </div>
 <p>Take a look at the console log.</p>
 <div class="highlight-python"><pre>nova console-log vm001</pre>
