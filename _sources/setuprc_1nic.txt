@@ -6,7 +6,7 @@
 setuprc example for 1NIC
 ========================
 
-Here's the diagram of a machine with 1 NIC.::
+Diagram::
 
     Public Network
    +-------------------------------
@@ -27,7 +27,7 @@ Here's the diagram of a machine with 1 NIC.::
      | Cinder Scheduler |     
      +------------------+          
 
-The ``setuprc`` file is like this::
+``setuprc``::
 
    # setuprc - configuration file for deploying OpenStack
 
