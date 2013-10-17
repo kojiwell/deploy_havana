@@ -5,7 +5,7 @@ Step-by-step agile startup of OpenStack Havana with Ubuntu 12.04 LTS.
 
 **Day 1.** `Build all-in-one node anyway. <https://github.com/kjtanaka/havana_startup/blob/master/doc/all_in_one.rst>`_
 
-**Day 2.** `Add some more Nova compute nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_compute.rst>`_
+**Day 2.** `Add Nova compute nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_compute.rst>`_
 
 **Day 3.** Build Cinder volume nodes. [On The Way]
 
@@ -29,10 +29,10 @@ but probably looks better organized.
 Script Change Log
 -----------------
 * The all-in-one bash script was originally written by Akira Yoshiyama, under Apache License 2.0, 
-  as a single node installation for beginers to try Folsom version.
-* I forked it and,
-    * Changed the messaging system from QPID to RabbitMQ.
-    * Added script for Cinder configration.
-    * Made another script for adding more Nova compute nodes.
-    * Modified for Grizzly version.
-    * Modified for Havana version.
+  for Folsom version.
+* I forked it, and then
+    * changed the messaging system from QPID to RabbitMQ.
+    * added script for Cinder setting on Keystone.
+    * made another script for adding more Nova compute nodes.
+    * modified for Grizzly version.
+    * modified for Havana version.
