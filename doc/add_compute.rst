@@ -54,7 +54,9 @@ components to reduce its workload.
 Check service list and if host02's nova-compute and nova-network are running fine.::
 
    nova-manage service list
-.::
+
+::
+
    Binary           Host                                 Zone             Status     State Updated_At
    nova-scheduler   host01                               internal         enabled    :-)   2013-10-17 03:31:11
    nova-conductor   host01                               internal         enabled    :-)   2013-10-17 03:31:07
