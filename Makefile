@@ -20,14 +20,10 @@ pages: ghphtml ghpgit
 ghphtml:
 	cd /tmp; rm -rf $(DIR)
 	cd /tmp; git clone git://github.com/kjtanaka/$(PROJECT).git
-	cd $(DOC); ls; make html
-	rm -rf _static
-	rm -rf _source
-	rm -rf *.html
-	cp -r $(DOC)/_build/html/* .
+	cd $(DOC); make html
 
 ghpgit:
-	git add . _sources _static   
+	cd $(DOC); git add . _sources _static   
 	git commit -am "updating the github pages"
 	git push
 	git checkout master
