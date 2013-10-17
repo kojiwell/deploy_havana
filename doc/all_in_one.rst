@@ -25,8 +25,8 @@ Two examples of ``setuprc`` are given below.::
    vi setuprc
    bash -ex build_all_in_one.sh
 
-* `setuprc example for 2NICs <http://kjtanaka.github.io/deploy_havana/setuprc_2nics.html>`_
-* `setuprc example for 1NIC <http://kjtanaka.github.io/deploy_havana/setuprc_1nic.html>`_
+* `setuprc example for 2NICs <setuprc_2nics.html>`_
+* `setuprc example for 1NIC <setuprc_1nic.html>`_
 
 If the bash script finished fine, your machine would be rebooted at the end of the script. 
 So wait until it becomes online.
