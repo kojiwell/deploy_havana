@@ -60,4 +60,3 @@ Take a look at the console log. ::
 If all look good, ssh to your vm001. ::
 
    ssh 192.168.201.3 -l ubuntu -i key1.pem
-
