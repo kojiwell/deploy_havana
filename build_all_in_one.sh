@@ -39,7 +39,6 @@ aptitude -y install \
     glance \
     cinder-api \
     cinder-scheduler \
-    cinder-volume \
     python-cinderclient \
     tgt \
     nova-api \
@@ -135,10 +134,9 @@ for i in /etc/nova/nova.conf \
 	 /etc/glance/glance-registry.conf \
 	 /etc/keystone/keystone.conf \
          /etc/cinder/cinder.conf \
-         /etc/cinder/api-paste.ini \
-         /etc/openstack-dashboard/local_settings.py
+         /etc/cinder/api-paste.ini
 do
-	test -f $i.orig || /bin/cp $i $i.orig
+	test -f $i.orig || cp $i $i.orig
 done
 
 cat << EOF > /etc/nova/nova.conf
