@@ -12,14 +12,14 @@ Quick Installation by Bash Script
 First of all, you need to update ``/etc/hosts`` for your environment. If your hostname is not resolvable,
 ``nova-network`` fails to start.
 
-Switch to ``root`` user, and download the bash script.::
+Switch to ``root`` user, and download the bash script. ::
 
    su - root
    git clone https://github.com/kjtanaka/havana_startup.git
    cd havana_startup
 
 Create and modify your ``setuprc`` file, and execute ``build_all_in_one.sh``.
-Two examples of ``setuprc`` are given below.::
+Two examples of ``setuprc`` are given below. ::
 
    cp setuprc_example_[1NIC/2NICs] setuprc
    vi setuprc
@@ -34,29 +34,29 @@ So wait until it becomes online.
 Boot Your First Instance and Feel It
 ------------------------------------
 
-Load nova environment::
+Load nova environment. ::
 
    cd havana_startup
    source admin_credential
 
-Check the list of images, flavors and keypairs::
+Check the list of images, flavors and keypairs. ::
 
    nova image-list
    nova flavor-list
    nova keypair-list
 
-Boot your first instance::
+Boot your first instance. ::
 
    nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001
 
-Check the status of instance::
+Check the status of instance. ::
 
    nova list
 
-Take a look at console-log::
+Take a look at the console log. ::
 
    nova console-log vm001
 
-If all look good, ssh to your vm001::
+If all look good, ssh to your vm001. ::
 
    ssh 192.168.201.3 -l ubuntu -i key1.pem
