@@ -15,8 +15,8 @@ First of all, you need to update ``/etc/hosts`` for your environment. If your ho
 Switch to ``root`` user, and download the bash script.::
 
    su - root
-   git clone https://github.com/kjtanaka/deploy_havana.git
-   cd deploy_havana
+   git clone https://github.com/kjtanaka/havana_startup.git
+   cd havana_startup
 
 Create and modify your ``setuprc`` file, and execute ``build_all_in_one.sh``.
 Two examples of ``setuprc`` are given below.::
