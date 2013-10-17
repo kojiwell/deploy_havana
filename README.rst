@@ -20,3 +20,7 @@ Step-by-step agile startup of OpenStack Havana with Ubuntu 12.04 LTS.
 **Day 8.** Better understand Open vSwitch before Neutron [OTW]
 
 **Day 9.** Setup Neutron. [OTW]
+
+Sphinx Doc:
+
+* `<http://kjtanaka.github.io/havana_startup/>`_
