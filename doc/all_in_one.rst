@@ -34,4 +34,12 @@ So wait until it becomes online.
 Boot Your First Instance and Feel It
 ------------------------------------
 
+Load nova environment::
 
+   cd havana_startup
+   source admin_credential
+
+Check the image list and boot an instance::
+
+   nova image-list
+   nova boot --image ubuntu
