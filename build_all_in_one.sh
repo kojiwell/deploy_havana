@@ -230,6 +230,14 @@ rabbit_password=$RABBIT_PASS
 sql_connection = mysql://openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS/cinder
 EOF
 
+CONF=/etc/cinder/api-paste.ini
+sed -e "s/^service_host *=.*/service_host = $CONTROLLER_PUBLIC_ADDRESS/" \
+    -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
+    -e 's/%SERVICE_TENANT_NAME%/service/' \
+    -e 's/%SERVICE_USER%/cinder/' \
+    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
+    $CONF.orig > $CONF
+
 CONF=/etc/nova/api-paste.ini
 sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e 's/%SERVICE_TENANT_NAME%/service/' \
@@ -269,14 +277,6 @@ sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
 CONF=/etc/keystone/keystone.conf
 sed -e "s/^#*connection *=.*/connection = mysql:\/\/openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS\/keystone/" \
     -e "s/^#* *admin_token *=.*/admin_token = $ADMIN_PASSWORD/" \
-    $CONF.orig > $CONF
-
-CONF=/etc/cinder/api-paste.ini
-sed -e "s/^service_host *=.*/service_host = $CONTROLLER_PUBLIC_ADDRESS/" \
-    -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
-    -e 's/%SERVICE_TENANT_NAME%/service/' \
-    -e 's/%SERVICE_USER%/cinder/' \
-    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
     $CONF.orig > $CONF
 
 for i in nova keystone glance cinder
