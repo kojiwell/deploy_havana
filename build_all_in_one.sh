@@ -491,6 +491,13 @@ source admin_credential
 /bin/chgrp adm key1.pem
 
 ##############################################################################
+## Add ssh config
+##############################################################################
+
+echo StrictHostKeyChecking no >> ~/.ssh/config
+echo UserKnownHostsFile=/dev/null >> ~/.ssh/config
+
+##############################################################################
 ## Enable ssh and ping on default security Group
 ##############################################################################
 
