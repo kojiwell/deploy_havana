@@ -1,13 +1,10 @@
-#!/bin/bash -xe
+#!/bin/bash -ex
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
 #
 # add_compute.sh - installs Nova compute on Ubuntu 12.04 LTS.
 #
 
 source setuprc
-
-HTTP_PROXY=$http_proxy
-unset http_proxy
 
 ##############################################################################
 ## Install necessary packages
@@ -16,8 +13,6 @@ unset http_proxy
 aptitude update
 apt-get install -y ubuntu-cloud-keyring
 echo deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/havana main >> /etc/apt/sources.list
-
-export DEBIAN_FRONTEND=noninteractive
 
 /usr/bin/aptitude update
 /usr/bin/aptitude -y upgrade
@@ -67,18 +62,14 @@ stop)
 esac
 exit 0
 EOF
-/bin/chmod +x openstack.sh
+/bin/chmod u+x openstack.sh
 
 ##############################################################################
 ## Modify configuration files of Nova, Glance and Keystone
 ##############################################################################
 
-for i in /etc/nova/nova.conf \
-         /etc/nova/api-paste.ini
-do
-	test -f $i.orig || /bin/cp $i $i.orig
-done
-
+CONF=/etc/nova/nova.conf
+test -f $CONF.orig || cp $CONF $CONF.orig
 /bin/cat << EOF > /etc/nova/nova.conf
 [DEFAULT]
 verbose=True
@@ -137,7 +128,7 @@ rabbit_userid=nova
 rabbit_password=$RABBIT_PASS
 
 # DATABASE
-sql_connection=mysql://openstack:$MYSQLPASS@$CONTROLLER_INTERNAL_ADDRESS/nova
+sql_connection=mysql://openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS/nova
 
 #use cinder
 enabled_apis=ec2,osapi_compute,metadata
@@ -149,12 +140,12 @@ keystone_ec2_url=http://$CONTROLLER_PUBLIC_ADDRESS:5000/v2.0/ec2tokens
 EOF
 
 CONF=/etc/nova/api-paste.ini
-/bin/sed \
-        -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
-	-e 's/%SERVICE_TENANT_NAME%/service/' \
-	-e 's/%SERVICE_USER%/nova/' \
-	-e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
-	$CONF.orig > $CONF
+test -f $CONF.orig || cp $CONF $CONF.orig
+sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
+    -e 's/%SERVICE_TENANT_NAME%/service/' \
+    -e 's/%SERVICE_USER%/nova/' \
+    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
+    $CONF.orig > $CONF
 
 chown -R nova /etc/nova
 
@@ -169,5 +160,5 @@ sleep 5
 ## Reboot
 ##############################################################################
 
+echo Done
 reboot
-

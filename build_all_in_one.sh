@@ -290,7 +290,7 @@ rabbitmqctl delete_user guest
 ## Modify MySQL configuration
 ##############################################################################
 
-mysqladmin -u root password $MYSQL_PASS
+mysqladmin -u root password $MYSQL_ADMIN_PASS
 /sbin/stop mysql
 
 CONF=/etc/mysql/my.cnf
@@ -305,7 +305,7 @@ sleep 5
 ## Create MySQL accounts and databases of Nova, Glance, Keystone and Cinder
 ##############################################################################
 
-cat << EOF | /usr/bin/mysql -uroot -p$MYSQL_PASS
+cat << EOF | /usr/bin/mysql -uroot -p$MYSQL_ADMIN_PASS
 DROP DATABASE IF EXISTS keystone;
 DROP DATABASE IF EXISTS glance;
 DROP DATABASE IF EXISTS nova;
@@ -362,8 +362,6 @@ sed -e "s#--publicurl http://localhost#--publicurl http://$CONTROLLER_PUBLIC_ADD
     -e "s#--adminurl 'http://localhost#--adminurl 'http://$CONTROLLER_ADMIN_ADDRESS#g" \
     -e "s#--internalurl http://localhost#--internalurl http://$CONTROLLER_INTERNAL_ADDRESS#g" \
     -e "s#--internalurl 'http://localhost#--internalurl 'http://$CONTROLLER_INTERNAL_ADDRESS#g" \
-    -e 's/QUANTUM/NEUTRON/g' \
-    -e 's/quantum/neutron/g' \
     /usr/share/keystone/sample_data.sh > /tmp/sample_data.sh
 bash -ex /tmp/sample_data.sh
 
