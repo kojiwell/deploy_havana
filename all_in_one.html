@@ -114,6 +114,27 @@ So wait until it becomes online.</p>
 </div>
 <div class="section" id="boot-your-first-instance-and-feel-it">
 <h2>Boot Your First Instance and Feel It<a class="headerlink" href="#boot-your-first-instance-and-feel-it" title="Permalink to this headline">¶</a></h2>
+<p>Load nova environment:</p>
+<div class="highlight-python"><pre>cd havana_startup
+source admin_credential</pre>
+</div>
+<p>Check the list of images, flavors and keypairs:</p>
+<div class="highlight-python"><pre>nova image-list
+nova flavor-list
+nova keypair-list</pre>
+</div>
+<p>Boot your first instance:</p>
+<div class="highlight-python"><pre>nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001</pre>
+</div>
+<p>Check the status of instance:</p>
+<div class="highlight-python"><pre>nova list</pre>
+</div>
+<p>Take a look at console-log:</p>
+<div class="highlight-python"><pre>nova console-log vm001</pre>
+</div>
+<p>If all look good, ssh to your vm001:</p>
+<div class="highlight-python"><pre>ssh 192.168.201.3 -l ubuntu -i key1.pem</pre>
+</div>
 </div>
 </div>
 
