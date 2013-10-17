@@ -39,7 +39,7 @@ Login to host02 and execute ``add_compute.sh`` ::
 
    ssh host02
    cd havana_startup
-   bash -ex add_compute_node.sh
+   bash -ex add_compute.sh
 
 If the bash script finshed fine, host02 would be rebooted.
 While waiting for host02 to be online, delete all instances and disable Nova Compute. ::
