@@ -21,10 +21,6 @@ ghphtml:
 	cd /tmp; rm -rf $(DIR)
 	cd /tmp; git clone git://github.com/kjtanaka/$(PROJECT).git
 	cd $(DOC); ls; make html
-	rm -rf _static
-	rm -rf _source
-	rm -rf *.html
-	cp -r $(DOC)/_build/html/* .
 
 ghpgit:
 	git add . _sources _static   
