@@ -23,4 +23,5 @@ Step-by-step agile startup of OpenStack Havana with Ubuntu 12.04 LTS.
 
 Sphinx Doc
 ----------
-The Sphinx Doc is here `<http://kjtanaka.github.io/havana_startup/>`_. Which probably look well organized.
+The Sphinx Doc is here `<http://kjtanaka.github.io/havana_startup/>`_. Which is the same as above, 
+but probably looks better organized.
