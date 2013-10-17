@@ -11,12 +11,12 @@ source setuprc
 ##############################################################################
 
 aptitude update
-apt-get install -y ubuntu-cloud-keyring
+aptitude install -y ubuntu-cloud-keyring
 echo deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/havana main >> /etc/apt/sources.list
 
-/usr/bin/aptitude update
-/usr/bin/aptitude -y upgrade
-/usr/bin/aptitude -y install \
+aptitude update
+aptitude -y dist-upgrade
+aptitude -y install \
     ntp \
     python-mysqldb \
     python-memcache \
