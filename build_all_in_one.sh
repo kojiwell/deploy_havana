@@ -377,21 +377,23 @@ bash -ex /tmp/sample_data.sh
 ## Create credentials
 ##############################################################################
 
-/bin/cat << EOF > admin_credential
+cat << EOF > admin_credential
 export OS_USERNAME=admin
 export OS_PASSWORD=$ADMIN_PASSWORD
 export OS_TENANT_NAME=demo
 export OS_AUTH_URL=http://$CONTROLLER_ADMIN_ADDRESS:35357/v2.0
 export OS_NO_CACHE=1
 EOF
+chmod 600 admin_credential
 
-/bin/cat << EOF > demo_credential
+cat << EOF > demo_credential
 export OS_USERNAME=demo
 export OS_PASSWORD=$ADMIN_PASSWORD
 export OS_TENANT_NAME=demo
 export OS_AUTH_URL=http://$CONTROLLER_PUBLIC_ADDRESS:5000/v2.0
 export OS_NO_CACHE=1
 EOF
+chmod 600 demo_credential
 
 ##############################################################################
 ## Add Cinder on Keystone
