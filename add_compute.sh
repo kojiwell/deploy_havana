@@ -32,7 +32,7 @@ aptitude -y install \
     nova-compute \
     nova-compute-kvm \
     nova-network \
-    python-keystone
+    python-keystoneclient
 
 ##############################################################################
 ## Disable IPv6
