@@ -217,17 +217,17 @@ source admin_credential</pre>
 <p>Check the status of instance.</p>
 <div class="highlight-python"><pre>nova list
 
-+--------------------------------------+-------+--------+------------+-------------+------------------------+
-| ID                                   | Name  | Status | Task State | Power State | Networks               |
-+--------------------------------------+-------+--------+------------+-------------+------------------------+
-| a94c8354-b2fb-432e-8ff2-d98e30b50162 | vm001 | ACTIVE | None       | Running     | private=192.168.201.2  |
-+--------------------------------------+-------+--------+------------+-------------+------------------------+</pre>
++--------------------------------------+-------+--------+------------+-------------+-----------------------+
+| ID                                   | Name  | Status | Task State | Power State | Networks              |
++--------------------------------------+-------+--------+------------+-------------+-----------------------+
+| a94c8354-b2fb-432e-8ff2-d98e30b50162 | vm001 | ACTIVE | None       | Running     | private=192.168.201.2 |
++--------------------------------------+-------+--------+------------+-------------+-----------------------+</pre>
 </div>
 <p>Take a look at the console log.</p>
 <div class="highlight-python"><pre>nova console-log vm001</pre>
 </div>
-<p>If all look good, ssh to your vm001.</p>
-<div class="highlight-python"><pre>ssh 192.168.201.2 -l ubuntu -i key1.pem</pre>
+<p>If all look good, you should be able to ssh to your first instance.</p>
+<div class="highlight-python"><pre>ssh -i key1.pem ubuntu@192.168.201.2</pre>
 </div>
 </div>
 </div>
