@@ -66,7 +66,7 @@ Check service list and if host02's nova-compute and nova-network are running fin
    nova-compute     host02                               nova             enabled    :-)   2013-10-17 03:31:03
    nova-network     host02                               internal         enabled    :-)   2013-10-17 03:31:09
 
-If the states of them are ``:-)``, boot an instance.
+If the states of them are ``:-)``, boot an instance.:
 
    nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001
    nova list
