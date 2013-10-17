@@ -21,6 +21,4 @@ Step-by-step agile startup of OpenStack Havana with Ubuntu 12.04 LTS.
 
 **Day 9.** Setup Neutron. [OTW]
 
-Sphinx Doc:
-
-* `<http://kjtanaka.github.io/havana_startup/>`_
+Sphinx Doc is here `<http://kjtanaka.github.io/havana_startup/>`_. Which probably look well organized.
