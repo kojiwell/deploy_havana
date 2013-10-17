@@ -6,6 +6,29 @@
 Build All-in-One Node Anyway
 =============================
 
+::
+
+    Public Network
+   +-------------------------------
+       |                           
+       | eth1 [xxx.xxx.xxx.xxx/24] 
+     +-----------------+           
+     | host01          |           
+     | =============== |           
+     | Keystone        |           
+     | Glance          |           
+     | Horizon         |          
+     | Nova API        |          
+     | Nova Scheduler  |          
+     | Nova Compute    |
+     | Nova Network    | 
+     | Nova Conductor  |      
+     +-----------------           
+       | eth0 [xxx.xxx.xxx.xxx/24] 
+       |                           
+   +-------------------------------
+    Internal/Admin Network
+
 Quick Installation by Bash Script
 ---------------------------------
 
