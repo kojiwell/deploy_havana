@@ -42,7 +42,6 @@ Load nova environment. ::
 Check the list of images, flavors and keypairs. ::
 
    nova image-list
-::
 
    +--------------------------------------+--------------+--------+--------+
    | ID                                   | Name         | Status | Server |
@@ -53,8 +52,6 @@ Check the list of images, flavors and keypairs. ::
 ::
 
    nova flavor-list
-
-::
 
    +----+-----------+-----------+------+-----------+------+-------+-------------+-----------+
    | ID | Name      | Memory_MB | Disk | Ephemeral | Swap | VCPUs | RXTX_Factor | Is_Public |
@@ -69,8 +66,6 @@ Check the list of images, flavors and keypairs. ::
 ::
 
    nova keypair-list
-
-::
 
    +------+-------------------------------------------------+
    | Name | Fingerprint                                     |
