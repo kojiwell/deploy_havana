@@ -1,6 +1,7 @@
 #!/bin/bash -xe
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
 #
-# setup_compute.sh - installs Nova compute on Ubuntu-13.04.
+# add_compute.sh - installs Nova compute on Ubuntu 12.04 LTS.
 #
 
 source setuprc
@@ -41,7 +42,6 @@ export DEBIAN_FRONTEND=noninteractive
 ##############################################################################
 ## Disable IPv6
 ##############################################################################
-#echo '127.0.0.1 localhost' > /etc/hosts
 echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
 
 ##############################################################################
