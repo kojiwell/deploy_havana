@@ -165,10 +165,10 @@ nova-manage service disable --host host01 --service nova-compute</pre>
 </div>
 <p>It is not necessary to disable Nova Compute, but host01 should only be used for the management
 components to reduce its workload.</p>
-<p>Check service list and if host02&#8217;s nova-compute and nova-network are running fine.</p>
-<div class="highlight-python"><pre>nova-manage service list</pre>
-</div>
-<div class="highlight-python"><pre>Binary           Host                                 Zone             Status     State Updated_At
+<p>Check service list.</p>
+<div class="highlight-python"><pre>nova-manage service list
+
+Binary           Host                                 Zone             Status     State Updated_At
 nova-scheduler   host01                               internal         enabled    :-)   2013-10-17 03:31:11
 nova-conductor   host01                               internal         enabled    :-)   2013-10-17 03:31:07
 nova-consoleauth host01                               internal         enabled    :-)   2013-10-17 03:31:10
