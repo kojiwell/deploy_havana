@@ -30,19 +30,19 @@ Add Nova Compute Nodes
     Internal/Admin Network
 
 First, update ``/etc/hosts`` if needed, and copy it and your ``havana_startup``
-directory to the compute node(host02 in this example).::
+directory to the compute node(host02 in this example). ::
 
    scp /etc/hosts host02:/etc/hosts
    scp -r havana_startup host02:havana_startup
 
-Login to host02 and execute ``add_compute.sh``::
+Login to host02 and execute ``add_compute.sh`` ::
 
    ssh host02
    cd havana_startup
    bash -ex add_compute_node.sh
 
 If the bash script finshed fine, host02 would be rebooted.
-While waiting for host02 to be online, delete all instances and disable Nova Compute.::
+While waiting for host02 to be online, delete all instances and disable Nova Compute. ::
 
    nova list
    nova delete <instance 1> <instance 2> ...
@@ -51,7 +51,7 @@ While waiting for host02 to be online, delete all instances and disable Nova Com
 It is not necessary to disable Nova Compute, but host01 should only be used for the management
 components to reduce its workload.
 
-Check service list and if host02's nova-compute and nova-network are running fine.::
+Check service list and if host02's nova-compute and nova-network are running fine. ::
 
    nova-manage service list
 
