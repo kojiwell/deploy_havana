@@ -3,9 +3,9 @@ OpenStack Havana Agile Startup
 
 Step-by-step agile startup of OpenStack Havana with Ubuntu 12.04 LTS.
 
-**Day 1.** [Build all-in-one node anyway.](http://kjtanaka.github.io/deploy_havana/all_in_one.html)
+**Day 1.** [Build all-in-one node anyway.](http://kjtanaka.github.io/havana_startup/all_in_one.html)
 
-**Day 2.** [Add some more Nova compute nodes.](http://kjtanaka.github.io/deploy_havana/add_compute.html)
+**Day 2.** [Add some more Nova compute nodes.](http://kjtanaka.github.io/havana_startup/add_compute.html)
 
 **Day 3.** Build Cinder volume nodes. [not ready yet]
 
