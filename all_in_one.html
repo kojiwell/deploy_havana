@@ -162,10 +162,129 @@ So wait until it becomes online.</p>
 source admin_credential</pre>
 </div>
 <p>Check the list of images, flavors and keypairs.</p>
-<div class="highlight-python"><pre>nova image-list
-nova flavor-list
-nova keypair-list</pre>
+<div class="highlight-python"><pre>nova image-list</pre>
 </div>
+<dl class="docutils">
+<dt>::</dt>
+<dd><table border="1" class="first last docutils">
+<colgroup>
+<col width="56%" />
+<col width="21%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ID</td>
+<td>Name</td>
+<td>Status</td>
+<td>Server</td>
+</tr>
+<tr class="row-even"><td>d95da7a5-d67d-4569-9edf-9524071b2c05</td>
+<td>ubuntu-12.10</td>
+<td>ACTIVE</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>::</dt>
+<dd>nova flavor-list</dd>
+</dl>
+<dl class="docutils">
+<dt>::</dt>
+<dd><table border="1" class="first last docutils">
+<colgroup>
+<col width="5%" />
+<col width="14%" />
+<col width="14%" />
+<col width="8%" />
+<col width="14%" />
+<col width="8%" />
+<col width="9%" />
+<col width="16%" />
+<col width="14%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>ID</td>
+<td>Name</td>
+<td>Memory_MB</td>
+<td>Disk</td>
+<td>Ephemeral</td>
+<td>Swap</td>
+<td>VCPUs</td>
+<td>RXTX_Factor</td>
+<td>Is_Public</td>
+</tr>
+<tr class="row-even"><td>1
+2
+3
+4
+5</td>
+<td>m1.tiny
+m1.small
+m1.medium
+m1.large
+m1.xlarge</td>
+<td>512
+2048
+4096
+8192
+16384</td>
+<td>1
+20
+40
+80
+160</td>
+<td>0
+0
+0
+0
+0</td>
+<td>&nbsp;</td>
+<td>1
+1
+2
+4
+8</td>
+<td>1.0
+1.0
+1.0
+1.0
+1.0</td>
+<td>True
+True
+True
+True
+True</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>::</dt>
+<dd>nova keypair-list</dd>
+</dl>
+<dl class="docutils">
+<dt>::</dt>
+<dd><table border="1" class="first last docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Name</td>
+<td>Fingerprint</td>
+</tr>
+<tr class="row-even"><td>key1</td>
+<td>xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
 <p>Boot your first instance.</p>
 <div class="highlight-python"><pre>nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001</pre>
 </div>
