@@ -6,7 +6,7 @@
 setuprc example for 2NICs
 =========================
 
-Here's the diagram of a machine with 2 NICs.::
+Diagram::
 
     Public Network
    +-------------------------------
@@ -31,7 +31,7 @@ Here's the diagram of a machine with 2 NICs.::
    +-------------------------------
     Internal/Admin Network
 
-The ``setuprc`` file becomes like this::
+``setuprc``::
 
    # setuprc - configuration file for deploying OpenStack
 
