@@ -51,11 +51,9 @@ While waiting for host02 to be online, delete all instances and disable Nova Com
 It is not necessary to disable Nova Compute, but host01 should only be used for the management
 components to reduce its workload.
 
-Check service list and if host02's nova-compute and nova-network are running fine. ::
+Check service list. ::
 
    nova-manage service list
-
-::
 
    Binary           Host                                 Zone             Status     State Updated_At
    nova-scheduler   host01                               internal         enabled    :-)   2013-10-17 03:31:11
