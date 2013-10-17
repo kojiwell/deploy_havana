@@ -51,8 +51,7 @@ While waiting for host02 to be online, delete all instances and disable Nova Com
 It is not necessary to disable Nova Compute, but host01 should only be used for the management
 components to reduce its workload.
 
-Check service list and if host02's nova-compute and nova-network are running fine,
-boot an instance.::
+Check service list and if host02's nova-compute and nova-network are running fine.::
 
    nova-manage service list
 
@@ -67,6 +66,12 @@ boot an instance.::
    nova-compute     host02                               nova             enabled    :-)   2013-10-17 03:31:03
    nova-network     host02                               internal         enabled    :-)   2013-10-17 03:31:09
 
-   nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001
+If the states of them are ``:-)``, boot an instance.
 
-Add some more compute nodes with the same procedure, and create your first cluster on the Cloud.
+   nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001
+   nova list
+   nova console-log vm001
+   ssh -l ubuntu -i key1.pem 192.168.201.3
+
+If you have more hosts, add some more compute nodes with the same procedure, 
+and create your first cluster on the Cloud.
