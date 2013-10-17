@@ -37,7 +37,15 @@ echo deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/havana
 ##############################################################################
 ## Disable IPv6
 ##############################################################################
+
 echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
+
+##############################################################################
+## Disable virbr0
+##############################################################################
+
+virsh net-autostart default
+virsh net-destroy default
 
 ##############################################################################
 ## Make a script to start/stop all services
