@@ -21,7 +21,6 @@ ghphtml:
 	cd /tmp
 	rm -rf $(DIR)
 	git clone git://github.com/kjtanaka/$(PROJECT).git
-	cp $(DIR)/Makefile .
 	cd $(DOC)
 	ls
 	make html
