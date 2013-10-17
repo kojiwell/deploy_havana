@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Add Compute Node &mdash; OpenStack Havana Agile Startup 0.1 documentation</title>
+    <title>Add Nova Compute Nodes &mdash; OpenStack Havana Agile Startup 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="OpenStack Havana Agile Startup 0.1 documentation" href="index.html" />
-    <link rel="prev" title="Build All-in-One Node Anyway." href="all_in_one.html" /> 
+    <link rel="prev" title="Build All-in-One Node Anyway" href="all_in_one.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,7 +36,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="all_in_one.html" title="Build All-in-One Node Anyway."
+          <a href="all_in_one.html" title="Build All-in-One Node Anyway"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">OpenStack Havana Agile Startup 0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -45,7 +45,7 @@
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="all_in_one.html"
-                        title="previous chapter">Build All-in-One Node Anyway.</a></p>
+                        title="previous chapter">Build All-in-One Node Anyway</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/add_compute.txt"
@@ -72,15 +72,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="add-compute-node">
-<h1>Add Compute Node<a class="headerlink" href="#add-compute-node" title="Permalink to this headline">¶</a></h1>
-<p>This is a test.test.:</p>
+  <div class="section" id="add-nova-compute-nodes">
+<h1>Add Nova Compute Nodes<a class="headerlink" href="#add-nova-compute-nodes" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-python"><pre> Public Network
 +--------------------------------------------------------------------------
     |                                 |                                |
     | eth1 [xxx.xxx.xxx.xxx/24]       | eth1 [xxx.xxx.xxx.xxx/24]      |
   +-----------------+               +-----------------+              +-----
-  | All in One      |               | Compute Node 01 |              |
+  | host01          |               | host02          |              |
   | =============== |               | =============== |              |
   | Keystone        |               | Nova Compute    |              |
   | Glance          |               | Nova Network    |              |
@@ -96,7 +95,46 @@
 +--------------------------------------------------------------------------
  Internal/Admin Network</pre>
 </div>
-<p>Test</p>
+<p>First, update <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> if needed, and copy it and your <tt class="docutils literal"><span class="pre">havana_startup</span></tt>
+directory to the compute node(host02 in this example).</p>
+<div class="highlight-python"><pre>scp /etc/hosts host02:/etc/hosts
+scp -r havana_startup host02:havana_startup</pre>
+</div>
+<p>Login to host02 and execute <tt class="docutils literal"><span class="pre">add_compute.sh</span></tt></p>
+<div class="highlight-python"><pre>ssh host02
+cd havana_startup
+bash -ex add_compute_node.sh</pre>
+</div>
+<p>If the bash script finshed fine, host02 would be rebooted.
+While waiting for host02 to be online, delete all instances and disable Nova Compute.</p>
+<div class="highlight-python"><pre>nova list
+nova delete &lt;instance 1&gt; &lt;instance 2&gt; ...
+nova-manage service disable --host host01 --service nova-compute</pre>
+</div>
+<p>It is not necessary to disable Nova Compute, but host01 should only be used for the management
+components to reduce its workload.</p>
+<p>Check service list and if host02&#8217;s nova-compute and nova-network are running fine.</p>
+<div class="highlight-python"><pre>nova-manage service list</pre>
+</div>
+<div class="highlight-python"><pre>Binary           Host                                 Zone             Status     State Updated_At
+nova-scheduler   host01                               internal         enabled    :-)   2013-10-17 03:31:11
+nova-conductor   host01                               internal         enabled    :-)   2013-10-17 03:31:07
+nova-consoleauth host01                               internal         enabled    :-)   2013-10-17 03:31:10
+nova-cert        host01                               internal         enabled    :-)   2013-10-17 03:31:10
+nova-network     host01                               internal         enabled    :-)   2013-10-17 03:31:05
+nova-compute     host01                               nova             disabled   :-)   2013-10-17 03:31:07
+nova-console     host01                               internal         enabled    :-)   2013-10-17 03:31:03
+nova-compute     host02                               nova             enabled    :-)   2013-10-17 03:31:03
+nova-network     host02                               internal         enabled    :-)   2013-10-17 03:31:09</pre>
+</div>
+<p>If the states of them are <tt class="docutils literal"><span class="pre">:-)</span></tt>, boot an instance.</p>
+<div class="highlight-python"><pre>nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001
+nova list
+nova console-log vm001
+ssh -l ubuntu -i key1.pem 192.168.201.3</pre>
+</div>
+<p>If you have more hosts, add some more compute nodes with the same procedure,
+and create your first cluster on the Cloud.</p>
 </div>
 
 
@@ -112,7 +150,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="all_in_one.html" title="Build All-in-One Node Anyway."
+          <a href="all_in_one.html" title="Build All-in-One Node Anyway"
              >previous</a> |</li>
         <li><a href="index.html">OpenStack Havana Agile Startup 0.1 documentation</a> &raquo;</li> 
       </ul>

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build All-in-One Node Anyway. &mdash; OpenStack Havana Agile Startup 0.1 documentation</title>
+    <title>Build All-in-One Node Anyway &mdash; OpenStack Havana Agile Startup 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="OpenStack Havana Agile Startup 0.1 documentation" href="index.html" />
-    <link rel="next" title="Add Compute Node" href="add_compute.html" />
+    <link rel="next" title="Add Nova Compute Nodes" href="add_compute.html" />
     <link rel="prev" title="OpenStack Havana Agile Startup" href="index.html" /> 
   </head>
   <body>
@@ -37,7 +37,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="add_compute.html" title="Add Compute Node"
+          <a href="add_compute.html" title="Add Nova Compute Nodes"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="OpenStack Havana Agile Startup"
@@ -49,7 +49,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Build All-in-One Node Anyway.</a><ul>
+<li><a class="reference internal" href="#">Build All-in-One Node Anyway</a><ul>
 <li><a class="reference internal" href="#quick-installation-by-bash-script">Quick Installation by Bash Script</a></li>
 <li><a class="reference internal" href="#boot-your-first-instance-and-feel-it">Boot Your First Instance and Feel It</a></li>
 </ul>
@@ -61,7 +61,7 @@
                         title="previous chapter">OpenStack Havana Agile Startup</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="add_compute.html"
-                        title="next chapter">Add Compute Node</a></p>
+                        title="next chapter">Add Nova Compute Nodes</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/all_in_one.txt"
@@ -89,18 +89,18 @@
           <div class="body">
             
   <div class="section" id="build-all-in-one-node-anyway">
-<h1>Build All-in-One Node Anyway.<a class="headerlink" href="#build-all-in-one-node-anyway" title="Permalink to this headline">¶</a></h1>
+<h1>Build All-in-One Node Anyway<a class="headerlink" href="#build-all-in-one-node-anyway" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="quick-installation-by-bash-script">
 <h2>Quick Installation by Bash Script<a class="headerlink" href="#quick-installation-by-bash-script" title="Permalink to this headline">¶</a></h2>
 <p>First of all, you need to update <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> for your environment. If your hostname is not resolvable,
 <tt class="docutils literal"><span class="pre">nova-network</span></tt> fails to start.</p>
-<p>Switch to <tt class="docutils literal"><span class="pre">root</span></tt> user, and download the bash script.:</p>
+<p>Switch to <tt class="docutils literal"><span class="pre">root</span></tt> user, and download the bash script.</p>
 <div class="highlight-python"><pre>su - root
 git clone https://github.com/kjtanaka/havana_startup.git
 cd havana_startup</pre>
 </div>
 <p>Create and modify your <tt class="docutils literal"><span class="pre">setuprc</span></tt> file, and execute <tt class="docutils literal"><span class="pre">build_all_in_one.sh</span></tt>.
-Two examples of <tt class="docutils literal"><span class="pre">setuprc</span></tt> are given below.:</p>
+Two examples of <tt class="docutils literal"><span class="pre">setuprc</span></tt> are given below.</p>
 <div class="highlight-python"><pre>cp setuprc_example_[1NIC/2NICs] setuprc
 vi setuprc
 bash -ex build_all_in_one.sh</pre>
@@ -114,25 +114,25 @@ So wait until it becomes online.</p>
 </div>
 <div class="section" id="boot-your-first-instance-and-feel-it">
 <h2>Boot Your First Instance and Feel It<a class="headerlink" href="#boot-your-first-instance-and-feel-it" title="Permalink to this headline">¶</a></h2>
-<p>Load nova environment:</p>
+<p>Load nova environment.</p>
 <div class="highlight-python"><pre>cd havana_startup
 source admin_credential</pre>
 </div>
-<p>Check the list of images, flavors and keypairs:</p>
+<p>Check the list of images, flavors and keypairs.</p>
 <div class="highlight-python"><pre>nova image-list
 nova flavor-list
 nova keypair-list</pre>
 </div>
-<p>Boot your first instance:</p>
+<p>Boot your first instance.</p>
 <div class="highlight-python"><pre>nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001</pre>
 </div>
-<p>Check the status of instance:</p>
+<p>Check the status of instance.</p>
 <div class="highlight-python"><pre>nova list</pre>
 </div>
-<p>Take a look at console-log:</p>
+<p>Take a look at the console log.</p>
 <div class="highlight-python"><pre>nova console-log vm001</pre>
 </div>
-<p>If all look good, ssh to your vm001:</p>
+<p>If all look good, ssh to your vm001.</p>
 <div class="highlight-python"><pre>ssh 192.168.201.3 -l ubuntu -i key1.pem</pre>
 </div>
 </div>
@@ -151,7 +151,7 @@ nova keypair-list</pre>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="add_compute.html" title="Add Compute Node"
+          <a href="add_compute.html" title="Add Nova Compute Nodes"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="OpenStack Havana Agile Startup"
