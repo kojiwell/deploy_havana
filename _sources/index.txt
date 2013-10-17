@@ -14,3 +14,6 @@ Contents:
    all_in_one
    add_compute
 
+Github:
+
+* `<https://github.com/kjtanaka/havana_startup>`_
