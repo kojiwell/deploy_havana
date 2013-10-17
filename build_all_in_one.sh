@@ -1,7 +1,7 @@
-#!/bin/bash -xe
+#!/bin/bash -ex
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
 #
-# setup_controller.sh - installs Keystone, Glance, Cinder, Nova, 
-# Horizon of OpenStack Grizzly on Ubuntu 13.04.
+# build_all_in_one.sh - builds a all-in-one OpenStack Havana on Ubuntu 12.04 LTS.
 #
 
 source setuprc
@@ -19,8 +19,8 @@ echo deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/havana
 
 export DEBIAN_FRONTEND=noninteractive
 
-aptitude -y update
-aptitude -y upgrade
+aptitude update
+aptitude -y dist-upgrade
 aptitude -y install \
     ntp \
     python-mysqldb \
