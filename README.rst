@@ -25,7 +25,7 @@ Index
 
 **Day 3.** `Build Cinder volume nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_volume.rst>`_
 
-**Day 4.** Make Horizon WebUI Secure (enable SSL). [OTW]
+**Day 4.** Make Horizon WebUI Secure (enable SSL). [On The Way]
 
 **Day 5.** Make Keystone Secure (enable SSL). [OTW]
 
