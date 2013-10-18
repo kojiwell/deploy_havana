@@ -3,8 +3,8 @@ OpenStack Havana Agile Startup
 
 This is about step-by-step startup of OpenStack Havana with Ubuntu 12.04 LTS. 
 
-Goods and Bads
---------------
+Goods and Bads about this approach
+----------------------------------
 
 * Goods
    * You can start with single node and scale it to some extent.
