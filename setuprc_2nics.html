@@ -74,6 +74,7 @@
     ><ul>
 <li class="toctree-l1"><a class="reference internal" href="all_in_one.html">Build All-in-One Node Anyway</a></li>
 <li class="toctree-l1"><a class="reference internal" href="add_compute.html">Add Nova Compute Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_volume.html">Add Cinder Volume Nodes</a></li>
 </ul>
 </ul>
 </li>
@@ -154,7 +155,8 @@ export PASSWORD='1234ABCDefgh'
 export ADMIN_PASSWORD=$PASSWORD
 export SERVICE_PASSWORD=$PASSWORD
 export ENABLE_ENDPOINTS=1
-MYSQLPASS=$PASSWORD
+MYSQL_ADMIN_PASS=$PASSWORD
+MYSQL_PASS=$PASSWORD
 RABBIT_PASS=$PASSWORD
 export CONTROLLER_PUBLIC_ADDRESS="123.123.123.123"
 export CONTROLLER_ADMIN_ADDRESS="192.168.100.1"
@@ -162,7 +164,8 @@ export CONTROLLER_INTERNAL_ADDRESS=$CONTROLLER_ADMIN_ADDRESS
 FIXED_RANGE="192.168.201.0/24"
 MYSQL_ACCESS="192.168.100.%"
 PUBLIC_INTERFACE="eth1"
-FLAT_INTERFACE="eth0"</pre>
+FLAT_INTERFACE="eth0"
+#CINDER_VOLUME=/dev/sdb1</pre>
 </div>
 </div>
 
