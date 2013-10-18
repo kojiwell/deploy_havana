@@ -163,16 +163,17 @@
 git clone https://github.com/kjtanaka/havana_startup.git
 cd havana_startup</pre>
 </div>
-<p>Create and modify your <tt class="docutils literal"><span class="pre">setuprc</span></tt> file, and execute <tt class="docutils literal"><span class="pre">build_all_in_one.sh</span></tt>.
-Two examples of <tt class="docutils literal"><span class="pre">setuprc</span></tt> are given below.</p>
+<p>Create and modify your <tt class="docutils literal"><span class="pre">setuprc</span></tt> file. Two examples of <tt class="docutils literal"><span class="pre">setuprc</span></tt> are given below.</p>
 <div class="highlight-python"><pre>cp setuprc_example_[1NIC/2NICs] setuprc
-vi setuprc
-bash -ex build_all_in_one.sh</pre>
+vi setuprc</pre>
 </div>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/kjtanaka/havana_startup/blob/master/doc/setuprc_2nics.rst">setuprc example for 2NICs</a></li>
 <li><a class="reference external" href="https://github.com/kjtanaka/havana_startup/blob/master/doc/setuprc_1nic.rst">setuprc example for 1NIC</a></li>
 </ul>
+<p>Execute <tt class="docutils literal"><span class="pre">build_all_in_one.sh</span></tt> with <tt class="docutils literal"><span class="pre">-ex</span></tt> option.</p>
+<div class="highlight-python"><pre>bash -ex build_all_in_one.sh</pre>
+</div>
 <p>If the bash script finished fine, your machine would be rebooted at the end of the script.
 So wait until it becomes online.</p>
 </div>
