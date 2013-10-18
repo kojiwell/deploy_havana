@@ -1,5 +1,0 @@
-#
-# volumerc - sets cinder volume env.
-#
-
-#CINDER_VOLUME=/dev/sdb1

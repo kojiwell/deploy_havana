@@ -5,7 +5,6 @@
 #
 
 source setuprc
-source volumerc
 
 grep ^$CINDER_VOLUME
 if [[ if [[ $? -eq 0 ]]; then

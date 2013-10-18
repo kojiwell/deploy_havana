@@ -13,6 +13,7 @@ Contents:
 
    all_in_one
    add_compute
+   add_volume
 
 Github Link:
 
