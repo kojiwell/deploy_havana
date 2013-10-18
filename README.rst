@@ -16,8 +16,8 @@ Goods and Bads about this approach
      you need to delete the keystone endpoint and relegister it with https.
    * Best-effort in a lot of ways.
 
-Logbook
--------
+Index
+-----
 
 **Day 1.** `Build all-in-one node anyway. <https://github.com/kjtanaka/havana_startup/blob/master/doc/all_in_one.rst>`_
 
