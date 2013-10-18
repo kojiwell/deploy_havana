@@ -44,9 +44,8 @@ but probably looks better organized.
 
 News
 ----
-**10/17/2013** Day 1 and Day 2 are ready.
-
-**10/18/2013** Day 3 is ready.
+| **10/17/2013** Day 1 and Day 2 are ready.
+| **10/18/2013** Day 3 is ready.
 
 Change Log
 ----------
