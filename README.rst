@@ -54,7 +54,7 @@ Change Log
   `<http://www.debian.or.jp/~yosshy/ubuntu-openstack/>`_.
   You can find his Grizzly script as well. I like his script so much, 
   and I feel Zen between his lines.
-* I forked it, and then
+* I forked Akira's script, and then
     * changed the messaging system from QPID to RabbitMQ.
     * added script for Cinder setting on Keystone.
     * made another script for adding more Nova compute nodes.
