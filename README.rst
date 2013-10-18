@@ -64,4 +64,5 @@ License
 * The document is written under Creative Commons Attribution 3.0 Unported License.
 
 .. image:: http://i.creativecommons.org/l/by/3.0/88x31.png
+   :target : http://creativecommons.org/licenses/by/3.0/
 `<http://creativecommons.org/licenses/by/3.0/>`_.
