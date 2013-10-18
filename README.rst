@@ -23,7 +23,7 @@ Logbook
 
 **Day 2.** `Add Nova compute nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_compute.rst>`_
 
-**Day 3.** Build Cinder volume nodes. [On The Way]
+**Day 3.** `Build Cinder volume nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_volume.rst>`_
 
 **Day 4.** Make Horizon WebUI Secure (enable SSL). [OTW]
 
@@ -45,6 +45,8 @@ but probably looks better organized.
 News
 ----
 **10/17/2013** Day 1 and Day 2 are ready.
+
+**10/18/2013** Day 3 is ready.
 
 Change Log
 ----------
