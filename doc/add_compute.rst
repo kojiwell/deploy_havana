@@ -35,11 +35,11 @@ directory to the compute node(host02 in this example). ::
    scp /etc/hosts host02:/etc/hosts
    scp -r havana_startup host02:havana_startup
 
-Login to host02 and execute ``add_compute.sh`` ::
+Login to host02 and execute ``add_nova_compute.sh`` with ``-ex`` option ::
 
    ssh host02
    cd havana_startup
-   bash -ex add_compute.sh
+   bash -ex add_nova_compute.sh
 
 If the bash script finshed fine, host02 would be rebooted.
 While waiting for host02 to be online, delete all instances and disable Nova Compute. ::
@@ -48,8 +48,8 @@ While waiting for host02 to be online, delete all instances and disable Nova Com
    nova delete <instance 1> <instance 2> ...
    nova-manage service disable --host host01 --service nova-compute
 
-It is not necessary to disable Nova Compute, but host01 should only be used for the management
-components to reduce its workload.
+It is not necessary to disable Nova Compute, but Nova Compute creates high-load, 
+so disablling it is wise. You should regard host01 as the management host from here.
 
 Check service list. ::
 
@@ -66,7 +66,7 @@ Check service list. ::
    nova-compute     host02                               nova             enabled    :-)   2013-10-17 03:31:03
    nova-network     host02                               internal         enabled    :-)   2013-10-17 03:31:09
 
-If the states of them are ``:-)``, boot an instance. ::
+If the states of host02's services become ``:-)``, boot an instance. ::
 
    nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001
    nova list
