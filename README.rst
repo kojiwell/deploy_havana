@@ -57,6 +57,7 @@ Change Log
     * made another script for adding more Nova compute nodes.
     * modified for Grizzly version.
     * modified for Havana version.
+    * made a script for adding more Cinder volume nodes.
 
 License
 -------
