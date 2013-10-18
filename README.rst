@@ -57,3 +57,11 @@ Change Log
     * made another script for adding more Nova compute nodes.
     * modified for Grizzly version.
     * modified for Havana version.
+
+License
+-------
+* The scripts are developed under Apache License 2.0
+* The document is written under Creative Commons Attribution 3.0 Unported License.
+
+.. image:: http://i.creativecommons.org/l/by/3.0/88x31.png
+`<http://creativecommons.org/licenses/by/3.0/>`_.
