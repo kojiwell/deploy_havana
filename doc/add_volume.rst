@@ -54,6 +54,7 @@ Create and attach a volume.
 Go back to host01(Management Host), and execute this. ::
 
    cinder-manage service list
+
    Binary           Host                                 Zone             Status     State Updated At
    cinder-scheduler host01                               nova             enabled    :-)   2013-10-18 05:49:18
    cinder-volume    host03                               nova             enabled    :-)   2013-10-18 05:49:19
