@@ -41,15 +41,17 @@ Switch to ``root`` user, and download the bash script. ::
    git clone https://github.com/kjtanaka/havana_startup.git
    cd havana_startup
 
-Create and modify your ``setuprc`` file, and execute ``build_all_in_one.sh``.
-Two examples of ``setuprc`` are given below. ::
+Create and modify your ``setuprc`` file. Two examples of ``setuprc`` are given below. ::
 
    cp setuprc_example_[1NIC/2NICs] setuprc
    vi setuprc
-   bash -ex build_all_in_one.sh
 
 * `setuprc example for 2NICs <https://github.com/kjtanaka/havana_startup/blob/master/doc/setuprc_2nics.rst>`_
 * `setuprc example for 1NIC <https://github.com/kjtanaka/havana_startup/blob/master/doc/setuprc_1nic.rst>`_
+
+Execute ``build_all_in_one.sh`` with ``-ex`` option. ::
+
+   bash -ex build_all_in_one.sh
 
 If the bash script finished fine, your machine would be rebooted at the end of the script. 
 So wait until it becomes online.
