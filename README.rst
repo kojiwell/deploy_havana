@@ -19,15 +19,11 @@ Goods and Bads about this approach
 Index
 -----
 
-**Day 1.** `Build all-in-one node anyway. <https://github.com/kjtanaka/havana_startup/blob/master/doc/all_in_one.rst>`_
-
-**Day 2.** `Add Nova compute nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_compute.rst>`_
-
-**Day 3.** `Build Cinder volume nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_volume.rst>`_
-
-**Day 4.** Make Horizon WebUI Secure (enable SSL). [OTW]
-
-**Day 5.** Make Keystone Secure (enable SSL). [OTW]
+| **Day 1.** `Build all-in-one node anyway. <https://github.com/kjtanaka/havana_startup/blob/master/doc/all_in_one.rst>`_
+| **Day 2.** `Add Nova compute nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_compute.rst>`_
+| **Day 3.** `Build Cinder volume nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_volume.rst>`_
+| **Day 4.** Make Horizon WebUI Secure (enable SSL). [OTW]
+| **Day 5.** Make Keystone Secure (enable SSL). [OTW]
 
 **Day 6.** Build Swift [OTW]
 
