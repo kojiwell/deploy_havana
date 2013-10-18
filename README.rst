@@ -12,7 +12,7 @@ Goods and Bads
 * Bads
    * The document is unfinished, and the scripts are beta forever.
    * Each step makes something good. However, going to the next step will make
-     some additional process. For example, when you enable ssl on keystone later,
+     some additional work. For example, when you enable ssl on keystone later,
      you need to delete the keystone endpoint and relegister it with https.
    * Best-effort in a lot of ways.
 
