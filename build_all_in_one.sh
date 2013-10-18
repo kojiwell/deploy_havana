@@ -40,7 +40,6 @@ aptitude -y install \
     cinder-api \
     cinder-scheduler \
     python-cinderclient \
-    tgt \
     nova-api \
     nova-cert \
     nova-compute \
@@ -69,6 +68,12 @@ echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
 
 virsh net-autostart default
 virsh net-destroy default
+
+##############################################################################
+## Disable Ubuntu Theme
+##############################################################################
+
+apt-get remove --purge openstack-dashboard-ubuntu-theme
 
 ##############################################################################
 ## Configure memcached
