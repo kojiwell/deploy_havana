@@ -10,7 +10,7 @@ Goods and Bads
    * You can start with single node and scale it to some extent.
    * Each step makes something good, with a little effort.
 * Bads
-   * The document and scripts are ongoing, and unfinished beta forever.
+   * The document is unfinished, and the scripts are beta forever.
    * Each step makes something good. However, going to the next step will make
      some additional process. For example, when you enable ssl on keystone later,
      you need to delete the keystone endpoint and relegister it with https.
