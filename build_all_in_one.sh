@@ -15,7 +15,8 @@ unset http_proxy
 
 aptitude update
 apt-get install ubuntu-cloud-keyring
-echo deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/havana main >> /etc/apt/sources.list
+echo deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/havana main \
+     > /etc/apt/sources.list.d/havana.list
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -90,8 +91,7 @@ cat << EOF > openstack.sh
 
 NOVA="conductor compute network scheduler cert consoleauth novncproxy api"
 GLANCE="registry api"
-KEYSTONE=""
-CINDER="scheduler volume api"
+CINDER="scheduler api"
 
 case "\$1" in
 start|restart|status)
@@ -133,18 +133,15 @@ chmod u+x openstack.sh
 ## Modify configuration files of Nova, Glance and Keystone
 ##############################################################################
 
-for i in /etc/nova/nova.conf \
-         /etc/nova/api-paste.ini \
-	 /etc/glance/glance-api.conf \
-	 /etc/glance/glance-registry.conf \
-	 /etc/keystone/keystone.conf \
-         /etc/cinder/cinder.conf \
-         /etc/cinder/api-paste.ini
-do
-	test -f $i.orig || cp $i $i.orig
-done
+CONF=/etc/keystone/keystone.conf
+test -f $CONF.orig || cp $CONF $CONF.orig
+sed -e "s/^#*connection *=.*/connection = mysql:\/\/openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS\/keystone/" \
+    -e "s/^#* *admin_token *=.*/admin_token = $ADMIN_PASSWORD/" \
+    $CONF.orig > $CONF
 
-cat << EOF > /etc/nova/nova.conf
+CONF=/etc/nova/nova.conf
+test -f $CONF.orig || cp $CONF $CONF.orig
+cat << EOF > $CONF
 [DEFAULT]
 verbose=True
 multi_host=True
@@ -173,16 +170,15 @@ public_interface=$PUBLIC_INTERFACE
 flat_interface=$FLAT_INTERFACE
 flat_network_bridge=br101
 fixed_range=$FIXED_RANGE
-#flat_network_dhcp_start=
-#network_size=255
 force_dhcp_release = True
 flat_injected=false
 use_ipv6=false
 #auto_assign_floating_ip = True
 
 # VNC
+novncproxy_base_url=http://\$my_ip:6080/vnc_auto.html
 vncserver_proxyclient_address=\$my_ip
-vncserver_listen=\$my_ip
+vncserver_listen=0.0.0.0
 keymap=en-us
 
 #scheduler
@@ -214,7 +210,48 @@ auth_strategy=keystone
 keystone_ec2_url=http://$CONTROLLER_PUBLIC_ADDRESS:5000/v2.0/ec2tokens
 EOF
 
-cat << EOF >> /etc/cinder/cinder.conf
+CONF=/etc/nova/api-paste.ini
+test -f $CONF.orig || cp $CONF $CONF.orig
+sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
+    -e 's/%SERVICE_TENANT_NAME%/service/' \
+    -e 's/%SERVICE_USER%/nova/' \
+    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
+    $CONF.orig > $CONF
+
+CONF=/etc/glance/glance-api.conf
+test -f $CONF.orig || cp $CONF $CONF.orig
+sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
+    -e 's/%SERVICE_TENANT_NAME%/service/' \
+    -e 's/%SERVICE_USER%/glance/' \
+    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
+    -e "s#^sql_connection *=.*#sql_connection = mysql://openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS/glance#" \
+    -e 's[^#* *config_file *=.*[config_file = /etc/glance/glance-api-paste.ini[' \
+    -e 's/^#*flavor *=.*/flavor = keystone/' \
+    -e 's/^notifier_strategy *=.*/notifier_strategy = rabbit/' \
+    -e "s/^rabbit_host *=.*/rabbit_host = $CONTROLLER_INTERNAL_ADDRESS/" \
+    -e 's/^rabbit_userid *=.*/rabbit_userid = nova/' \
+    -e "s/^rabbit_password *=.*/rabbit_password = $RABBIT_PASS/" \
+    -e "s/^rabbit_virtual_host *=.*/rabbit_virtual_host = \/nova/" \
+    -e "s/127.0.0.1/$CONTROLLER_PUBLIC_ADDRESS/" \
+    -e "s/localhost/$CONTROLLER_PUBLIC_ADDRESS/" \
+    $CONF.orig > $CONF
+
+CONF=/etc/glance/glance-registry.conf
+test -f $CONF.orig || cp $CONF $CONF.orig
+sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
+    -e 's/%SERVICE_TENANT_NAME%/service/' \
+    -e 's/%SERVICE_USER%/glance/' \
+    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
+    -e "s/^sql_connection *=.*/sql_connection = mysql:\/\/openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS\/glance/" \
+    -e 's/^#* *config_file *=.*/config_file = \/etc\/glance\/glance-registry-paste.ini/' \
+    -e 's/^#*flavor *=.*/flavor=keystone/' \
+    -e "s/127.0.0.1/$CONTROLLER_PUBLIC_ADDRESS/" \
+    -e "s/localhost/$CONTROLLER_PUBLIC_ADDRESS/" \
+    $CONF.orig > $CONF
+
+CONF=/etc/cinder/cinder.conf
+test -f $CONF.orig || cp $CONF $CONF.orig
+cat << EOF >> $CONF
 # LOGGING
 log_file=cinder.log
 log_dir=/var/log/cinder
@@ -234,6 +271,7 @@ sql_connection = mysql://openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS/cind
 EOF
 
 CONF=/etc/cinder/api-paste.ini
+test -f $CONF.orig || cp $CONF $CONF.orig
 sed -e "s/^service_host *=.*/service_host = $CONTROLLER_PUBLIC_ADDRESS/" \
     -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e 's/%SERVICE_TENANT_NAME%/service/' \
@@ -241,48 +279,7 @@ sed -e "s/^service_host *=.*/service_host = $CONTROLLER_PUBLIC_ADDRESS/" \
     -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
     $CONF.orig > $CONF
 
-CONF=/etc/nova/api-paste.ini
-sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
-    -e 's/%SERVICE_TENANT_NAME%/service/' \
-    -e 's/%SERVICE_USER%/nova/' \
-    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
-    $CONF.orig > $CONF
-
-CONF=/etc/glance/glance-api.conf
-sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
-    -e 's/%SERVICE_TENANT_NAME%/service/' \
-    -e 's/%SERVICE_USER%/glance/' \
-    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
-    -e "s#^sql_connection *=.*#sql_connection = mysql://openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS/glance#" \
-    -e 's[^#* *config_file *=.*[config_file = /etc/glance/glance-api-paste.ini[' \
-    -e 's/^#*flavor *=.*/flavor = keystone/' \
-    -e 's/^notifier_strategy *=.*/notifier_strategy = rabbit/' \
-    -e "s/^rabbit_host *=.*/rabbit_host = $CONTROLLER_INTERNAL_ADDRESS/" \
-    -e 's/^rabbit_userid *=.*/rabbit_userid = nova/' \
-    -e "s/^rabbit_password *=.*/rabbit_password = $RABBIT_PASS/" \
-    -e "s/^rabbit_virtual_host *=.*/rabbit_virtual_host = \/nova/" \
-    -e "s/127.0.0.1/$CONTROLLER_PUBLIC_ADDRESS/" \
-    -e "s/localhost/$CONTROLLER_PUBLIC_ADDRESS/" \
-    $CONF.orig > $CONF
-
-CONF=/etc/glance/glance-registry.conf
-sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
-    -e 's/%SERVICE_TENANT_NAME%/service/' \
-    -e 's/%SERVICE_USER%/glance/' \
-    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
-    -e "s/^sql_connection *=.*/sql_connection = mysql:\/\/openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS\/glance/" \
-    -e 's/^#* *config_file *=.*/config_file = \/etc\/glance\/glance-registry-paste.ini/' \
-    -e 's/^#*flavor *=.*/flavor=keystone/' \
-    -e "s/127.0.0.1/$CONTROLLER_PUBLIC_ADDRESS/" \
-    -e "s/localhost/$CONTROLLER_PUBLIC_ADDRESS/" \
-    $CONF.orig > $CONF
-
-CONF=/etc/keystone/keystone.conf
-sed -e "s/^#*connection *=.*/connection = mysql:\/\/openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS\/keystone/" \
-    -e "s/^#* *admin_token *=.*/admin_token = $ADMIN_PASSWORD/" \
-    $CONF.orig > $CONF
-
-for i in nova keystone glance cinder
+for i in keystone nova glance cinder
 do
 	chown -R $i /etc/$i
 done

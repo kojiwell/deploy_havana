@@ -37,7 +37,7 @@ First of all, you need to update ``/etc/hosts`` for your environment. If your ho
 
 Switch to ``root`` user, and download the bash script. ::
 
-   su - root
+   sudo -i
    git clone https://github.com/kjtanaka/havana_startup.git
    cd havana_startup
 
