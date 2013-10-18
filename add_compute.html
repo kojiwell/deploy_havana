@@ -152,10 +152,10 @@ directory to the compute node(host02 in this example).</p>
 <div class="highlight-python"><pre>scp /etc/hosts host02:/etc/hosts
 scp -r havana_startup host02:havana_startup</pre>
 </div>
-<p>Login to host02 and execute <tt class="docutils literal"><span class="pre">add_compute.sh</span></tt></p>
+<p>Login to host02 and execute <tt class="docutils literal"><span class="pre">add_nova_compute.sh</span></tt> with <tt class="docutils literal"><span class="pre">-ex</span></tt> option</p>
 <div class="highlight-python"><pre>ssh host02
 cd havana_startup
-bash -ex add_compute.sh</pre>
+bash -ex add_nova_compute.sh</pre>
 </div>
 <p>If the bash script finshed fine, host02 would be rebooted.
 While waiting for host02 to be online, delete all instances and disable Nova Compute.</p>
@@ -163,8 +163,8 @@ While waiting for host02 to be online, delete all instances and disable Nova Com
 nova delete &lt;instance 1&gt; &lt;instance 2&gt; ...
 nova-manage service disable --host host01 --service nova-compute</pre>
 </div>
-<p>It is not necessary to disable Nova Compute, but host01 should only be used for the management
-components to reduce its workload.</p>
+<p>It is not necessary to disable Nova Compute, but Nova Compute creates high-load,
+so disablling it is wise. You should regard host01 as the management host from here.</p>
 <p>Check service list.</p>
 <div class="highlight-python"><pre>nova-manage service list
 
@@ -179,7 +179,7 @@ nova-console     host01                               internal         enabled  
 nova-compute     host02                               nova             enabled    :-)   2013-10-17 03:31:03
 nova-network     host02                               internal         enabled    :-)   2013-10-17 03:31:09</pre>
 </div>
-<p>If the states of them are <tt class="docutils literal"><span class="pre">:-)</span></tt>, boot an instance.</p>
+<p>If the states of host02&#8217;s services become <tt class="docutils literal"><span class="pre">:-)</span></tt>, boot an instance.</p>
 <div class="highlight-python"><pre>nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001
 nova list
 nova console-log vm001
