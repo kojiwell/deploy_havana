@@ -48,7 +48,7 @@ Execute ``add_cinder_volume.sh`` with ``-ex`` option ::
 
 If the bash script finshed fine, Cinder Volume should be ready.
 
-Create and attach a volume.
+Create and attach a volume
 ---------------------------
 
 Go back to host01(Management Host), and execute this. ::

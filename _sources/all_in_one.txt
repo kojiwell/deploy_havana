@@ -37,7 +37,7 @@ First of all, you need to update ``/etc/hosts`` for your environment. If your ho
 
 Switch to ``root`` user, and download the bash script. ::
 
-   su - root
+   sudo -i
    git clone https://github.com/kjtanaka/havana_startup.git
    cd havana_startup
 
@@ -71,7 +71,7 @@ Check the list of images, flavors and keypairs. ::
    +--------------------------------------+--------------+--------+--------+
    | ID                                   | Name         | Status | Server |
    +--------------------------------------+--------------+--------+--------+
-   | d95da7a5-d67d-4569-9edf-9524071b2c05 | ubuntu-12.10 | ACTIVE |        |
+   | d95da7a5-d67d-4569-9edf-9524071b2c05 | ubuntu-12.04 | ACTIVE |        |
    +--------------------------------------+--------------+--------+--------+
    
 ::

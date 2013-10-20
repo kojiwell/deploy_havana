@@ -160,7 +160,7 @@
 <p>First of all, you need to update <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> for your environment. If your hostname is not resolvable,
 <tt class="docutils literal"><span class="pre">nova-network</span></tt> fails to start.</p>
 <p>Switch to <tt class="docutils literal"><span class="pre">root</span></tt> user, and download the bash script.</p>
-<div class="highlight-python"><pre>su - root
+<div class="highlight-python"><pre>sudo -i
 git clone https://github.com/kjtanaka/havana_startup.git
 cd havana_startup</pre>
 </div>
@@ -190,7 +190,7 @@ source admin_credential</pre>
 +--------------------------------------+--------------+--------+--------+
 | ID                                   | Name         | Status | Server |
 +--------------------------------------+--------------+--------+--------+
-| d95da7a5-d67d-4569-9edf-9524071b2c05 | ubuntu-12.10 | ACTIVE |        |
+| d95da7a5-d67d-4569-9edf-9524071b2c05 | ubuntu-12.04 | ACTIVE |        |
 +--------------------------------------+--------------+--------+--------+</pre>
 </div>
 <div class="highlight-python"><pre>nova flavor-list
