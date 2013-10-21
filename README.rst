@@ -9,7 +9,7 @@ Goods and Bads about this approach
 ----------------------------------
 
 * Goods
-   * You can start with single node and scale it to some extent.
+   * You can start with single node, which is the easiest, and then scale it to some extent.
    * Each step makes something good, with a little effort.
    * Debug is easier in some sense, because it's step-by-step, and
      you know it was working on the previous step.
