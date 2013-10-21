@@ -29,18 +29,12 @@ aptitude -y install \
     rabbitmq-server \
     mysql-server \
     memcached \
-    open-iscsi \
     open-iscsi-utils \
-    kvm \
-    kvm-ipxe \
-    libvirt-bin \
     bridge-utils \
-    python-libvirt \
     keystone \
     glance \
     cinder-api \
     cinder-scheduler \
-    python-cinderclient \
     nova-api \
     nova-cert \
     nova-compute \
@@ -52,10 +46,8 @@ aptitude -y install \
     nova-console \
     nova-consoleauth \
     nova-novncproxy \
-    websockify \
     novnc \
-    openstack-dashboard \
-    libapache2-mod-wsgi
+    openstack-dashboard
 
 ##############################################################################
 ## Disable IPv6
