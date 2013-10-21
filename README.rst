@@ -9,10 +9,10 @@ Goods and Bads about this approach
 ----------------------------------
 
 * Goods
-   * You can start with single node, which is the easiest, and then scale it to some extent.
-   * Each step makes something good, with a little effort.
-   * Debug is easier in some sense, because it's step-by-step, and
-     you know it was working on the previous step.
+   * You can start with single node, which is the easiest, and then scale it to some extent 
+     with adding nodes and components.
+   * Each step makes something workable, with a little effort.
+   * Debug is relatively easier because you know it was working at the previous step.
 * Bads
    * The document is ongoing and unfinished, and the scripts are beta forever.
      So I change things a lot.
