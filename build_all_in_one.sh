@@ -20,7 +20,7 @@ echo deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/havana
 
 aptitude update
 aptitude -y dist-upgrade
-echo mysql-server mysql-server/root_password $MYSQL_ADMIN_PASS | debconf-set-selections
+echo mysql-server mysql-server/root_password password $MYSQL_ADMIN_PASS | debconf-set-selections
 echo mysql-server mysql-server/root_password_again password $MYSQL_ADMIN_PASS | debconf-set-selections
 aptitude -y install \
     ntp \
