@@ -1,7 +1,8 @@
 OpenStack Havana Agile Startup
 ==============================
 
-This is about step-by-step startup of OpenStack Havana with Ubuntu 12.04 LTS. 
+OpenStack has high-scalability. So why don't we start with a single node, heading toward a right scale for each. 
+So here's about a step-by-step startup of OpenStack Havana with Ubuntu 12.04 LTS. 
 
 Goods and Bads about this approach
 ----------------------------------
@@ -11,10 +12,11 @@ Goods and Bads about this approach
    * Each step makes something good, with a little effort.
 * Bads
    * The document is ongoing and unfinished, and the scripts are beta forever.
+     So I change things a lot.
    * Each step makes something good. However, going to the next step will make
      some additional work for reconfiguration. For example, when you enable 
      ssl on keystone later, you need to delete the keystone endpoint and 
-     relegister it with https.
+     relegister it with https. This kind of work happens at each step.
    * Best-effort in a lot of ways.
 
 Index
@@ -40,16 +42,15 @@ Index
 
 News
 ----
-| **10/17/2013** Day 1 and Day 2 are ready.
-| **10/18/2013** Day 3 is ready.
+| **10/17/2013** Day 1 and Day 2 are ready to try.
+| **10/18/2013** Day 3 is ready to try.
 
 Change Log
 ----------
-* The all-in-one bash script was originally written by Akira Yoshiyama-san, under Apache License 2.0, 
-  for Folsom version. The link to Akira's script is here 
+* The all-in-one bash script was originally written by Akira Yoshiyama-san, under Apache License 2.0. It was
+  for Folsom version when I forked. The link to Akira's script is here 
   `<http://www.debian.or.jp/~yosshy/ubuntu-openstack/>`_.
-  You can find his Grizzly script as well. I like his script so much, 
-  and I feel Zen between his lines.
+  You can find his Grizzly script as well. I like his script so much. I feel Zen between his lines.
 * I forked Akira's script, and then
     * changed the messaging system from QPID to RabbitMQ.
     * added script for Cinder setting on Keystone.
@@ -60,7 +61,7 @@ Change Log
 
 License
 -------
-* The scripts are developed under Apache License 2.0
+* The scripts are developed under Apache License 2.0 as you can see on the change log.
 * The document is written under Creative Commons Attribution 3.0 Unported License.
 
 .. image:: http://i.creativecommons.org/l/by/3.0/88x31.png
