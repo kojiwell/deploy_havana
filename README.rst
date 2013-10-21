@@ -1,8 +1,9 @@
 OpenStack Havana Agile Startup
 ==============================
 
-OpenStack has high-scalability. So why don't we start with a single node, heading toward a right scale for each. 
-So here's about a step-by-step startup of OpenStack Havana with Ubuntu 12.04 LTS. 
+OpenStack has high-scalability. So why don't we start with a single node, 
+heading toward a right scale for each? So this is about a step-by-step 
+startup of OpenStack Havana with Ubuntu 12.04 LTS. 
 
 Goods and Bads about this approach
 ----------------------------------
@@ -10,6 +11,8 @@ Goods and Bads about this approach
 * Goods
    * You can start with single node and scale it to some extent.
    * Each step makes something good, with a little effort.
+   * Debug is easier in some sense, because it's step-by-step, and
+     you know it was working on the previous step.
 * Bads
    * The document is ongoing and unfinished, and the scripts are beta forever.
      So I change things a lot.
