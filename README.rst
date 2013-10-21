@@ -9,10 +9,11 @@ Goods and Bads about this approach
 ----------------------------------
 
 * Goods
-   * You can start with single node, which is the easiest, and then scale it to some extent 
-     with adding nodes and components.
-   * Each step makes something workable, with a little effort.
-   * Debug is relatively easier because you know it was working at the previous step.
+   * You can start with single node, which should be the easiest, and then scale it 
+     to some extent with adding nodes and components.
+   * The Bash scripts helps you to reduce manual works.
+   * Each step makes something workable, with a little more effort.
+   * Debug is relatively easy because you know it was working at the previous step.
 * Bads
    * The document is ongoing and unfinished, and the scripts are beta forever.
      I often update things right now.
