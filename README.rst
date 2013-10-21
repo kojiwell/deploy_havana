@@ -12,8 +12,9 @@ Goods and Bads about this approach
 * Bads
    * The document is ongoing and unfinished, and the scripts are beta forever.
    * Each step makes something good. However, going to the next step will make
-     some additional work. For example, when you enable ssl on keystone later,
-     you need to delete the keystone endpoint and relegister it with https.
+     some additional work for reconfiguration. For example, when you enable 
+     ssl on keystone later, you need to delete the keystone endpoint and 
+     relegister it with https.
    * Best-effort in a lot of ways.
 
 Index
@@ -36,11 +37,6 @@ Index
 **Day 8.** Better understand Open vSwitch before Neutron [OTW]
 
 **Day 9.** Setup Neutron. [OTW]
-
-Sphinx Doc
-----------
-The Sphinx Doc is here `<http://kjtanaka.github.io/havana_startup/>`_. Which is the same as above, 
-but probably looks better organized.
 
 News
 ----
