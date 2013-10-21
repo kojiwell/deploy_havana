@@ -52,10 +52,10 @@ News
 Change Log
 ----------
 * The all-in-one bash script was originally written by Akira Yoshiyama-san, under Apache License 2.0. It was
-  for Folsom version when I forked. The link to Akira's script is here 
+  for Folsom version when I forked it. The link to Yoshiyama-san's script is here 
   `<http://www.debian.or.jp/~yosshy/ubuntu-openstack/>`_.
   You can find his Grizzly script as well. I like his script so much. I feel Zen between his lines.
-* I forked Akira's script, and then
+* I forked Yoshiyama-san's script, and then
     * changed the messaging system from QPID to RabbitMQ.
     * added script for Cinder setting on Keystone.
     * made another script for adding more Nova compute nodes.
