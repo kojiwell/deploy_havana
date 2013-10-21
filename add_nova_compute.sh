@@ -22,9 +22,6 @@ aptitude -y install \
     python-memcache \
     open-iscsi \
     open-iscsi-utils \
-    kvm \
-    kvm-ipxe \
-    libvirt-bin \
     bridge-utils \
     python-libvirt \
     python-cinderclient \

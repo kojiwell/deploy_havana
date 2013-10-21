@@ -38,6 +38,7 @@ aptitude -y install \
     nova-api \
     nova-cert \
     nova-compute \
+    nova-compute-kvm \
     nova-objectstore \
     nova-network \
     nova-scheduler \
