@@ -15,7 +15,7 @@ Goods and Bads about this approach
    * Debug is relatively easier because you know it was working at the previous step.
 * Bads
    * The document is ongoing and unfinished, and the scripts are beta forever.
-     I often change things right now.
+     I often update things right now.
    * Each step makes something good. However, going to the next step will make
      some additional work for reconfiguration. For example, when you enable 
      ssl on keystone later, you need to delete the keystone endpoint and 
