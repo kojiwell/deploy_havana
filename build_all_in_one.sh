@@ -76,6 +76,57 @@ sed -i "s/127.0.0.1/$CONTROLLER_ADMIN_ADDRESS/" /etc/memcached.conf
 service memcached restart
 
 ##############################################################################
+## Configure RabbitMQ
+##############################################################################
+
+rabbitmqctl add_vhost /nova
+rabbitmqctl add_user nova $RABBIT_PASS
+rabbitmqctl set_permissions -p /nova nova ".*" ".*" ".*"
+rabbitmqctl delete_user guest
+
+##############################################################################
+## Modify MySQL configuration
+##############################################################################
+
+mysqladmin -u root password $MYSQL_ADMIN_PASS
+/sbin/stop mysql
+
+CONF=/etc/mysql/my.cnf
+test -f $CONF.orig || /bin/cp $CONF $CONF.orig
+sed -e 's/^bind-address[[:space:]]*=.*/bind-address = 0.0.0.0/' \
+    $CONF.orig > $CONF
+
+start mysql
+sleep 5
+
+##############################################################################
+## Create MySQL accounts and databases of Keystone, Glance, Nova and Cinder
+##############################################################################
+
+cat << EOF | /usr/bin/mysql -uroot -p$MYSQL_ADMIN_PASS
+DROP DATABASE IF EXISTS keystone;
+DROP DATABASE IF EXISTS glance;
+DROP DATABASE IF EXISTS nova;
+DROP DATABASE IF EXISTS cinder;
+CREATE DATABASE keystone;
+CREATE DATABASE glance;
+CREATE DATABASE nova;
+CREATE DATABASE cinder;
+GRANT ALL ON keystone.* TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON glance.*   TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON nova.*     TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON cinder.*   TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON keystone.* TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON glance.*   TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON nova.*     TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON cinder.*   TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON keystone.* TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON glance.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON nova.*     TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
+GRANT ALL ON cinder.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
+EOF
+
+##############################################################################
 ## Make a script to start/stop all services
 ##############################################################################
 
@@ -123,7 +174,7 @@ chmod u+x openstack.sh
 ./openstack.sh stop
 
 ##############################################################################
-## Modify configuration files of Nova, Glance and Keystone
+## Configure Keystone
 ##############################################################################
 
 CONF=/etc/keystone/keystone.conf
@@ -131,6 +182,10 @@ test -f $CONF.orig || cp $CONF $CONF.orig
 sed -e "s/^#*connection *=.*/connection = mysql:\/\/openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS\/keystone/" \
     -e "s/^#* *admin_token *=.*/admin_token = $ADMIN_PASSWORD/" \
     $CONF.orig > $CONF
+
+##############################################################################
+## Configure Nova
+##############################################################################
 
 CONF=/etc/nova/nova.conf
 test -f $CONF.orig || cp $CONF $CONF.orig
@@ -211,6 +266,10 @@ sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
     $CONF.orig > $CONF
 
+##############################################################################
+## Configure Glance
+##############################################################################
+
 CONF=/etc/glance/glance-api.conf
 test -f $CONF.orig || cp $CONF $CONF.orig
 sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
@@ -241,6 +300,10 @@ sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e "s/127.0.0.1/$CONTROLLER_PUBLIC_ADDRESS/" \
     -e "s/localhost/$CONTROLLER_PUBLIC_ADDRESS/" \
     $CONF.orig > $CONF
+
+##############################################################################
+## Configure Cinder
+##############################################################################
 
 CONF=/etc/cinder/cinder.conf
 test -f $CONF.orig || cp $CONF $CONF.orig
@@ -278,69 +341,13 @@ do
 done
 
 ##############################################################################
-## Configure RabbitMQ
-##############################################################################
-
-rabbitmqctl add_vhost /nova
-rabbitmqctl add_user nova $RABBIT_PASS
-rabbitmqctl set_permissions -p /nova nova ".*" ".*" ".*"
-rabbitmqctl delete_user guest
-
-##############################################################################
-## Modify MySQL configuration
-##############################################################################
-
-mysqladmin -u root password $MYSQL_ADMIN_PASS
-/sbin/stop mysql
-
-CONF=/etc/mysql/my.cnf
-test -f $CONF.orig || /bin/cp $CONF $CONF.orig
-sed -e 's/^bind-address[[:space:]]*=.*/bind-address = 0.0.0.0/' \
-    $CONF.orig > $CONF
-
-start mysql
-sleep 5
-
-##############################################################################
-## Create MySQL accounts and databases of Nova, Glance, Keystone and Cinder
-##############################################################################
-
-cat << EOF | /usr/bin/mysql -uroot -p$MYSQL_ADMIN_PASS
-DROP DATABASE IF EXISTS keystone;
-DROP DATABASE IF EXISTS glance;
-DROP DATABASE IF EXISTS nova;
-DROP DATABASE IF EXISTS cinder;
-CREATE DATABASE keystone;
-CREATE DATABASE glance;
-CREATE DATABASE nova;
-CREATE DATABASE cinder;
-GRANT ALL ON keystone.* TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON glance.*   TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON nova.*     TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON cinder.*   TO 'openstack'@'localhost'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON keystone.* TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON glance.*   TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON nova.*     TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON cinder.*   TO 'openstack'@'$CONTROLLER_ADMIN_ADDRESS'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON keystone.* TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON glance.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON nova.*     TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
-GRANT ALL ON cinder.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQL_PASS';
-EOF
-
-##############################################################################
 ## Initialize databases of Nova, Glance and Keystone
 ##############################################################################
 
-#if [ -n $CINDER_VOL ]; then
-#    pvcreate $CINDER_VOL
-#    vgcreate cinder-volumes $CINDER_VOL
-#fi
-
-/usr/bin/keystone-manage db_sync
-/usr/bin/glance-manage db_sync
-/usr/bin/nova-manage db sync
-/usr/bin/cinder-manage db sync
+keystone-manage db_sync
+glance-manage db_sync
+nova-manage db sync
+cinder-manage db sync
 
 ##############################################################################
 ## Start Keystone
@@ -386,7 +393,7 @@ EOF
 chmod 600 demo_credential
 
 ##############################################################################
-## Add Cinder on Keystone
+## Create Cinder's User, Service and Endpoint on Keystone
 ##############################################################################
 
 source admin_credential
