@@ -67,7 +67,7 @@ virsh net-destroy default
 ## Disable Ubuntu Theme
 ##############################################################################
 
-apt-get remove --purge openstack-dashboard-ubuntu-theme
+apt-get -y remove --purge openstack-dashboard-ubuntu-theme
 
 ##############################################################################
 ## Configure memcached
@@ -88,8 +88,7 @@ rabbitmqctl delete_user guest
 ## Modify MySQL configuration
 ##############################################################################
 
-mysqladmin -u root password $MYSQL_ADMIN_PASS
-/sbin/stop mysql
+stop mysql
 
 CONF=/etc/mysql/my.cnf
 test -f $CONF.orig || /bin/cp $CONF $CONF.orig
