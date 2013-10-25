@@ -41,7 +41,7 @@ echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
 ## Disable virbr0
 ##############################################################################
 
-virsh net-autostart default
+virsh net-autostart default --disable
 virsh net-destroy default
 
 ##############################################################################

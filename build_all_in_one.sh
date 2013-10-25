@@ -60,7 +60,7 @@ echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
 ## Disable virbr0
 ##############################################################################
 
-virsh net-autostart default
+virsh net-autostart default --disable
 virsh net-destroy default
 
 ##############################################################################
@@ -209,13 +209,18 @@ lock_path=/var/lock/nova
 
 # NETWORK
 libvirt_use_virtio_for_bridges = True
-network_manager=nova.network.manager.FlatDHCPManager
 firewall_driver=nova.virt.libvirt.firewall.IptablesFirewallDriver
 dhcpbridge_flagfile=/etc/nova/nova.conf
 dhcpbridge=/usr/bin/nova-dhcpbridge
 public_interface=$PUBLIC_INTERFACE
+# FlatDHCPManager
+network_manager=nova.network.manager.FlatDHCPManager
 flat_interface=$INTERNAL_INTERFACE
 flat_network_bridge=br101
+# VlanManager
+#network_manager=nova.network.manager.VlanManager
+#vlan_interface=$INTERNAL_INTERFACE
+#vlan_start=101
 fixed_range=$FIXED_RANGE
 force_dhcp_release = True
 flat_injected=false
@@ -431,6 +436,7 @@ keystone endpoint-create \
 ## Create a nova network
 ##############################################################################
 
+# FlatDHCPManager
 nova-manage network create \
 	--label private \
 	--num_networks=1 \
@@ -438,6 +444,14 @@ nova-manage network create \
         --bridge_interface=$INTERNAL_INTERFACE \
 	--network_size=256 \
         --multi_host=T
+
+# VlanManager
+#nova-manage network create \
+#    --label vlan101 \
+#    --fixed_range_v4=$FIXED_RANGE \
+#    --num_networks=1 \
+#    --network_size=256 \
+#    --vlan 101
 
 ##############################################################################
 ## Start all srevices
