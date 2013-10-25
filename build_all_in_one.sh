@@ -214,7 +214,7 @@ firewall_driver=nova.virt.libvirt.firewall.IptablesFirewallDriver
 dhcpbridge_flagfile=/etc/nova/nova.conf
 dhcpbridge=/usr/bin/nova-dhcpbridge
 public_interface=$PUBLIC_INTERFACE
-flat_interface=$FLAT_INTERFACE
+flat_interface=$INTERNAL_INTERFACE
 flat_network_bridge=br101
 fixed_range=$FIXED_RANGE
 force_dhcp_release = True
@@ -435,7 +435,7 @@ nova-manage network create \
 	--label private \
 	--num_networks=1 \
 	--fixed_range_v4=$FIXED_RANGE \
-        --bridge_interface=$FLAT_INTERFACE \
+        --bridge_interface=$INTERNAL_INTERFACE \
 	--network_size=256 \
         --multi_host=T
 
