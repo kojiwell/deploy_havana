@@ -62,5 +62,10 @@ cert_required = False\
 cert_subject = \/C=US\/ST=Unset\/L=Unset\/O=Unset\/CN=localhost/' \
     $CONF.nonssl > $CONF
 
+CONF=admin_credential
+test -f $CONF.nonssl || cp $CONF $CONF.nonssl
+echo export OS_CACERT=/etc/keystone/ssl/certs/ca.pem >> admin_credential
+
 restart kesytone || start keystone
 status keystone
+keystone endpoint-list
