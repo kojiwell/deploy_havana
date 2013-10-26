@@ -403,8 +403,6 @@ chmod 600 demo_credential
 source admin_credential
 keystone endpoint-delete $(keystone endpoint-list | grep 8776 | awk '{print $2}')
 keystone service-delete $(keystone service-list | grep volume | awk '{print $2}')
-SERVICE_PASSWORD=$ADMIN_PASSWORD
-SERVICE_HOST=$CONTROLLER_PUBLIC_ADDRESS
 
 function get_id () {
     echo `"$@" | awk '/ id / { print $4 }'`
