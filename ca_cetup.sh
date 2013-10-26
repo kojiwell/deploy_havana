@@ -48,6 +48,7 @@ keystone endpoint-create --region RegionOne --service-id $KEYSTONE_SERVICE \
 ##############################################################################
 # Recreate Keystone Service and Endpoint
 ##############################################################################
+CONF=/etc/keystone/keystone.conf
 test -f $CONF.nonssl || cp $CONF $CONF.nonssl
 sed -e 's/\[ssl\]/\[ssl\]\
 enable = True\
@@ -64,7 +65,8 @@ cert_subject = \/C=US\/ST=Unset\/L=Unset\/O=Unset\/CN=localhost/' \
 
 CONF=admin_credential
 test -f $CONF.nonssl || cp $CONF $CONF.nonssl
-echo export OS_CACERT=/etc/keystone/ssl/certs/ca.pem >> admin_credential
+sed -e 's/OS_AUTH_URL=http/OS_AUTH_URL=https/' $CONF.nonssl > $CONF
+echo export OS_CACERT=/etc/keystone/ssl/certs/ca.pem >> $CONF
 
 restart keystone || start keystone
 status keystone
