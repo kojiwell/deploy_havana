@@ -66,6 +66,6 @@ CONF=admin_credential
 test -f $CONF.nonssl || cp $CONF $CONF.nonssl
 echo export OS_CACERT=/etc/keystone/ssl/certs/ca.pem >> admin_credential
 
-restart kesytone || start keystone
+restart keystone || start keystone
 status keystone
 keystone endpoint-list
