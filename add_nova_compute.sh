@@ -96,13 +96,18 @@ lock_path=/var/lock/nova
 
 # NETWORK
 libvirt_use_virtio_for_bridges = True
-network_manager=nova.network.manager.FlatDHCPManager
 firewall_driver=nova.virt.libvirt.firewall.IptablesFirewallDriver
 dhcpbridge_flagfile=/etc/nova/nova.conf
 dhcpbridge=/usr/bin/nova-dhcpbridge
 public_interface=$PUBLIC_INTERFACE
+# FlatDHCPManager
+network_manager=nova.network.manager.FlatDHCPManager
 flat_interface=$INTERNAL_INTERFACE
 flat_network_bridge=br101
+# VlanManager
+#network_manager=nova.network.manager.VlanManager
+#vlan_interface=$INTERNAL_INTERFACE
+#vlan_start=101
 fixed_range=$FIXED_RANGE
 #flat_network_dhcp_start=
 #network_size=255
