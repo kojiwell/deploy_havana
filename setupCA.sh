@@ -4,7 +4,8 @@ DIR=./demoCA
 SUBJECT="/C=US/ST=ANYSTATE/L=ANYCITY/O=OPENSTACK/CN=www.openstack.local"
 PASSWORD=${PASSWORD:-GoodForNothing}
 DAYS=3650
-cd /tmp
+mkdir /tmp/$USER
+cd /tmp/$USER
 mkdir -p $DIR
 chmod 700 $DIR
 mkdir -p $DIR/certs
@@ -18,4 +19,4 @@ openssl genrsa -passout pass:$PASSWORD -des3 -out demoCA/private/server.key 1024
 openssl req -passin pass:$PASSWORD -new -days $DAYS -key demoCA/private/server.key -out demoCA/certs/server.csr -subj $SUBJECT
 openssl ca -passin pass:$PASSWORD -in demoCA/certs/server.csr -batch -keyfile demoCA/private/cakey.pem -out demoCA/certs/server.crt -policy policy_anything -days $DAYS
 chmod -R 700 $DIR/private
-mv /tmp/$DIR $HOME/openstackCA
+mv /tmp/$USER/$DIR $HOME/openstackCA
