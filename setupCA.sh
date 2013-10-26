@@ -1,8 +1,12 @@
+source setuprc
+
 DIR=./demoCA
 SUBJECT="/C=US/ST=ANYSTATE/L=ANYCITY/O=OPENSTACK/CN=www.openstack.local"
-PASSWORD="ANYTHING"
+PASSWORD=${PASSWORD:-GoodForNothing}
 DAYS=3650
+cd /tmp
 mkdir -p $DIR
+chmod 700 $DIR
 mkdir -p $DIR/certs
 mkdir -p $DIR/crl
 mkdir -p $DIR/newcerts
@@ -13,3 +17,5 @@ openssl ca -create_serial -passin pass:$PASSWORD -out $DIR/./cacert.pem -days $D
 openssl genrsa -passout pass:$PASSWORD -des3 -out demoCA/private/server.key 1024 -subj $SUBJECT
 openssl req -passin pass:$PASSWORD -new -days $DAYS -key demoCA/private/server.key -out demoCA/certs/server.csr -subj $SUBJECT
 openssl ca -passin pass:$PASSWORD -in demoCA/certs/server.csr -batch -keyfile demoCA/private/cakey.pem -out demoCA/certs/server.crt -policy policy_anything -days $DAYS
+chmod -R 700 $DIR/private
+mv /tmp/$DIR $HOME/openstackCA
