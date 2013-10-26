@@ -1,27 +1,66 @@
 source setuprc
 
-DIR=./demoCA
-SUBJECT="/C=US/ST=ANYSTATE/L=ANYCITY/O=OPENSTACK/CN=www.openstack.local"
-PASSWORD=${PASSWORD:-GoodForNothing}
-DAYS=3650
-TMPDIR=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c7)
-mkdir /tmp/$TMPDIR
-cd /tmp/$TMPDIR
-mkdir -p $DIR
-chmod 700 $DIR
-mkdir -p $DIR/certs
-mkdir -p $DIR/crl
-mkdir -p $DIR/newcerts
-mkdir -p $DIR/private
-touch $DIR/index.txt
-openssl req -new -keyout $DIR/private/cakey.pem -out $DIR/certs/careq.pem -days $DAYS -passout pass:$PASSWORD -subj $SUBJECT
-openssl ca -create_serial -passin pass:$PASSWORD -out $DIR/certs/cacert.pem -days $DAYS -batch -keyfile $DIR/private/cakey.pem -selfsign -extensions v3_ca -subj $SUBJECT -infiles $DIR/certs/careq.pem
-ln $DIR/certs/cacert.pem $DIR/cacert.pem
-openssl genrsa -passout pass:$PASSWORD -des3 -out demoCA/private/ssl_key.pem 1024 -subj $SUBJECT
-openssl req -passin pass:$PASSWORD -new -days $DAYS -key demoCA/private/ssl_key.pem -out demoCA/certs/ssl_csr.pem -subj $SUBJECT
-openssl ca -passin pass:$PASSWORD -in demoCA/certs/ssl_csr.pem -batch -keyfile demoCA/private/cakey.pem -out demoCA/certs/ssl_cert.pem -policy policy_anything -days $DAYS
-rm $DIR/cacert.pem
-chmod 700 $DIR/private && chmod 600 $DIR/private/*
-mv /tmp/$TMPDIR/$DIR $HOME/pki
-cd
-rm -rf /tmp/$TMPDIR
+##############################################################################
+# Enable SSL on Horizon
+##############################################################################
+a2enmod ssl
+a2ensite default-ssl
+/etc/init.d/apache2 restart
+
+
+##############################################################################
+# Recreate Keystone Service and Endpoint
+##############################################################################
+CONF=/etc/keystone/keystone.conf
+
+# Extract some info from Keystone's configuration file
+if [[ -r "$CONF" ]]; then
+    CONFIG_SERVICE_TOKEN=$(sed 's/[[:space:]]//g' $CONF | grep ^admin_token= | cut -d'=' -f2)
+    CONFIG_ADMIN_PORT=$(sed 's/[[:space:]]//g' $CONF | grep ^admin_port= | cut -d'=' -f2)
+fi
+
+export SERVICE_TOKEN=${SERVICE_TOKEN:-$CONFIG_SERVICE_TOKEN}
+if [[ -z "$SERVICE_TOKEN" ]]; then
+    echo "No service token found."
+    echo "Set SERVICE_TOKEN manually from keystone.conf admin_token."
+    exit 1
+fi
+
+export SERVICE_ENDPOINT=${SERVICE_ENDPOINT:-http://$CONTROLLER_PUBLIC_ADDRESS:${CONFIG_ADMIN_PORT:-35357}/v2.0}
+
+function get_id () {
+    echo `"$@" | grep ' id ' | awk '{print $4}'`
+}
+
+KEYSTONE_SERVICE=$(get_id keystone service-get keystone)
+KEYSTONE_ENDPOINT=$(keystone endpoint-list | grep $KEYSTONE_SERVICE|awk '{print $2}')
+keystone endpoint-delete $KEYSTONE_ENDPOINT
+keystone service-delete $KEYSTONE_SERVICE
+KEYSTONE_SERVICE=$(get_id \
+keystone service-create --name=keystone \
+                        --type=identity \
+                        --description="Keystone Identity Service")
+keystone endpoint-create --region RegionOne --service-id $KEYSTONE_SERVICE \
+        --publicurl "https://$CONTROLLER_PUBLIC_ADDRESS:\$(public_port)s/v2.0" \
+        --adminurl "https://$CONTROLLER_ADMIN_ADDRESS:\$(admin_port)s/v2.0" \
+        --internalurl "https://$CONTROLLER_INTERNAL_ADDRESS:\$(public_port)s/v2.0"
+
+##############################################################################
+# Recreate Keystone Service and Endpoint
+##############################################################################
+test -f $CONF.nonssl || cp $CONF $CONF.nonssl
+sed -e 's/\[ssl\]/\[ssl\]\
+enable = True\
+certfile = \/etc\/keystone\/ssl\/certs\/signing_cert.pem\
+keyfile = \/etc\/keystone\/ssl\/private\/signing_key.pem\
+ca_certs = \/etc\/keystone\/ssl\/certs\/ca.pem\
+ca_key = \/etc\/keystone\/ssl\/certs\/cakey.pem\
+key_size = 1024\
+valid_days = 3650\
+ca_password = None\
+cert_required = False\
+cert_subject = \/C=US\/ST=Unset\/L=Unset\/O=Unset\/CN=localhost/' \
+    $CONF.nonssl > $CONF
+
+restart kesytone || start keystone
+status keystone
