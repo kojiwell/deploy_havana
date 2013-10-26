@@ -267,7 +267,7 @@ test -f $CONF.orig || cp $CONF $CONF.orig
 sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e 's/%SERVICE_TENANT_NAME%/service/' \
     -e 's/%SERVICE_USER%/nova/' \
-    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
+    -e "s/%SERVICE_PASSWORD%/$SERVICE_PASSWORD/" \
     $CONF.orig > $CONF
 
 ##############################################################################
@@ -279,7 +279,7 @@ test -f $CONF.orig || cp $CONF $CONF.orig
 sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e 's/%SERVICE_TENANT_NAME%/service/' \
     -e 's/%SERVICE_USER%/glance/' \
-    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
+    -e "s/%SERVICE_PASSWORD%/$SERVICE_PASSWORD/" \
     -e "s#^sql_connection *=.*#sql_connection = mysql://openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS/glance#" \
     -e 's[^#* *config_file *=.*[config_file = /etc/glance/glance-api-paste.ini[' \
     -e 's/^#*flavor *=.*/flavor = keystone/' \
@@ -297,7 +297,7 @@ test -f $CONF.orig || cp $CONF $CONF.orig
 sed -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e 's/%SERVICE_TENANT_NAME%/service/' \
     -e 's/%SERVICE_USER%/glance/' \
-    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
+    -e "s/%SERVICE_PASSWORD%/$SERVICE_PASSWORD/" \
     -e "s/^sql_connection *=.*/sql_connection = mysql:\/\/openstack:$MYSQL_PASS@$CONTROLLER_INTERNAL_ADDRESS\/glance/" \
     -e 's/^#* *config_file *=.*/config_file = \/etc\/glance\/glance-registry-paste.ini/' \
     -e 's/^#*flavor *=.*/flavor=keystone/' \
@@ -336,7 +336,7 @@ sed -e "s/^service_host *=.*/service_host = $CONTROLLER_PUBLIC_ADDRESS/" \
     -e "s/^auth_host *=.*/auth_host = $CONTROLLER_ADMIN_ADDRESS/" \
     -e 's/%SERVICE_TENANT_NAME%/service/' \
     -e 's/%SERVICE_USER%/cinder/' \
-    -e "s/%SERVICE_PASSWORD%/$ADMIN_PASSWORD/" \
+    -e "s/%SERVICE_PASSWORD%/$SERVICE_PASSWORD/" \
     $CONF.orig > $CONF
 
 for i in keystone nova glance cinder
