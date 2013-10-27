@@ -1,12 +1,10 @@
+#!/bin/bash -ex
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+#
+# ca_setup.sh - enable SSL on the all_in_one node.
+#
+
 source setuprc
-
-##############################################################################
-# Enable SSL on Horizon
-##############################################################################
-a2enmod ssl
-a2ensite default-ssl
-/etc/init.d/apache2 restart
-
 
 ##############################################################################
 # Recreate Keystone Service and Endpoint
@@ -41,16 +39,16 @@ keystone service-create --name=keystone \
                         --type=identity \
                         --description="Keystone Identity Service")
 keystone endpoint-create --region RegionOne --service-id $KEYSTONE_SERVICE \
-        --publicurl "https://$CONTROLLER_PUBLIC_ADDRESS:\$(public_port)s/v2.0" \
-        --adminurl "https://$CONTROLLER_ADMIN_ADDRESS:\$(admin_port)s/v2.0" \
-        --internalurl "https://$CONTROLLER_INTERNAL_ADDRESS:\$(public_port)s/v2.0"
+        --publicurl "https://$COMMON_NAME:\$(public_port)s/v2.0" \
+        --adminurl "https://$COMMON_NAME:\$(admin_port)s/v2.0" \
+        --internalurl "https://$COMMON_NAME:\$(public_port)s/v2.0"
 
 ##############################################################################
-# Recreate Keystone Service and Endpoint
+# Recreate selfsigned CA and certificates with new COMMON_NAME
 ##############################################################################
 CONF=/etc/keystone/keystone.conf
 test -f $CONF.nonssl || cp $CONF $CONF.nonssl
-sed -e 's/\[ssl\]/\[ssl\]\
+sed -e "s/\[ssl\]/\[ssl\]\
 enable = True\
 certfile = \/etc\/keystone\/ssl\/certs\/signing_cert.pem\
 keyfile = \/etc\/keystone\/ssl\/private\/signing_key.pem\
@@ -60,14 +58,56 @@ key_size = 1024\
 valid_days = 3650\
 ca_password = None\
 cert_required = False\
-cert_subject = \/C=US\/ST=Unset\/L=Unset\/O=Unset\/CN=localhost/' \
-    $CONF.nonssl > $CONF
+cert_subject = \/C=US\/ST=Unset\/L=Unset\/O=Unset\/CN=$COMMON_NAME/" \
+$CONF.nonssl > $CONF
+
+mv /etc/keystone/ssl /etc/keystone/ssl.orig
+keystone-manage ssl_setup --keystone-user keystone --keystone-group keystone
 
 CONF=admin_credential
 test -f $CONF.nonssl || cp $CONF $CONF.nonssl
-sed -e 's/OS_AUTH_URL=http/OS_AUTH_URL=https/' $CONF.nonssl > $CONF
+sed -e "s/OS_AUTH_URL=http/OS_AUTH_URL=https:\/\/$COMMON_NAME:35357\/v2.0/" \
+    $CONF.nonssl > $CONF
 echo export OS_CACERT=/etc/keystone/ssl/certs/ca.pem >> $CONF
 
 restart keystone || start keystone
 status keystone
 keystone endpoint-list
+
+##############################################################################
+# Enable SSL on Horizon
+##############################################################################
+CONF=/etc/openstack-dashboard/local_settings.py
+test -f $CONF.nonssl || cp $CONF $CONF.nonssl
+sed -e "s/OPENSTACK_HOST =.*/OPENSTACK_HOST = \"$COMMON_NAME\"/" \
+    -e 's/OPENSTACK_KEYSTONE_URL = \"http/OPENSTACK_KEYSTONE_URL = \"https/' \
+    -e 's/# OPENSTACK_SSL_NO_VERIFY/OPENSTACK_SSL_NO_VERIFY/' \
+    -e "s/# OPENSTACK_SSL_CACERT =.*/OPENSTACK_SSL_CACERT = \'\/etc\/keystone\/ssl\/certs\/ca.pem\'/" \
+    $CONF.nonssl > $CONF
+
+a2enmod ssl
+a2ensite default-ssl
+/etc/init.d/apache2 restart
+
+##############################################################################
+# Enable SSL on Nova, Glance and Cinder
+##############################################################################
+for CONF in /etc/nova/api-paste.ini \
+    /etc/cinder/api-paste.ini \
+    /etc/glance/glance-api.conf \
+    /etc/glance/glance-registry.conf
+do
+    test -f $CONF.nonssl || cp $CONF $CONF.nonssl
+    sed -e "s/auth_host =.*/auth_host = $COMMON_NAME/" \
+        -e 's/auth_protocol =.*/auth_protocol = https/' \
+        $CONF.nonssl > $CONF
+done
+
+CONF=/etc/nova/nova.conf
+test -f $CONF.nonssl || cp $CONF $CONF.nonssl
+sed -e "s/keystone_ec2_url=.*/keystone_ec2_url=https://$COMMON_NAME:5000/v2.0/ec2tokens/" \
+    $CONF.nonssl > $CONF
+
+./openstack.sh restart
+
+echo Done
