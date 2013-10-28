@@ -105,7 +105,7 @@ done
 
 CONF=/etc/nova/nova.conf
 test -f $CONF.nonssl || cp $CONF $CONF.nonssl
-sed -e "s/keystone_ec2_url=.*/keystone_ec2_url=https://$COMMON_NAME:5000/v2.0/ec2tokens/" \
+sed -e "s/keystone_ec2_url=.*/keystone_ec2_url=https:\/\/$COMMON_NAME:5000\/v2.0\/ec2tokens\/" \
     $CONF.nonssl > $CONF
 
 ./openstack.sh restart
