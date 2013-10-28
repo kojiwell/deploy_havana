@@ -14,6 +14,7 @@ Contents:
    all_in_one
    add_compute
    add_volume
+   ca_setup
 
 Github Link:
 

@@ -75,6 +75,7 @@
 <li class="toctree-l1"><a class="reference internal" href="all_in_one.html">Build All-in-One Node Anyway</a></li>
 <li class="toctree-l1"><a class="reference internal" href="add_compute.html">Add Nova Compute Nodes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="add_volume.html">Add Cinder Volume Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ca_setup.html">Enable SSL on Keystone and Horizon</a></li>
 </ul>
 </ul>
 </li>
@@ -160,8 +161,7 @@ export CONTROLLER_INTERNAL_ADDRESS=$CONTROLLER_ADMIN_ADDRESS
 FIXED_RANGE="192.168.201.0/24"
 MYSQL_ACCESS="123.123.123.%"
 PUBLIC_INTERFACE="br101"
-FLAT_INTERFACE="eth0"
-#CINDER_VOLUME=/dev/sdb1</pre>
+INTERNAL_INTERFACE="eth0"</pre>
 </div>
 </div>
 
