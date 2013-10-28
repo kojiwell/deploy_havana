@@ -32,7 +32,7 @@ Index
 
 **Day 3.** `Build Cinder volume nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_volume.rst>`_
 
-**Day 4.** `Make Keystone and Horizon Secure (enable SSL). [On The Way] <https://github.com/kjtanaka/havana_startup/blob/master/doc/ca_setup.rst>`_
+**Day 4.** `Make Keystone and Horizon Secure. [On The Way] <https://github.com/kjtanaka/havana_startup/blob/master/doc/ca_setup.rst>`_
 
 **Day 5.** Build Swift [OTW]
 
@@ -46,6 +46,7 @@ News
 ----
 | **10/17/2013** Day 1 and Day 2 are ready to try.
 | **10/18/2013** Day 3 is ready to try.
+| **10/28/2013** Day 4 is ready to try.
 
 Change Log
 ----------
