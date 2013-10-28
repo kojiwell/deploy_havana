@@ -34,7 +34,7 @@ Index
 
 **Day 4.** `Make Keystone and Horizon Secure. <https://github.com/kjtanaka/havana_startup/blob/master/doc/ca_setup.rst>`_
 
-**Day 5.** Build Swift [OTW]
+**Day 5.** Build Swift [On The Way]
 
 **Day 6.** Setup Swift as the backend storage of Glance [OTW]
 
