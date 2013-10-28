@@ -32,17 +32,15 @@ Index
 
 **Day 3.** `Build Cinder volume nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_volume.rst>`_
 
-**Day 4.** `Make Horizon WebUI Secure (enable SSL). [On The Way] <https://github.com/kjtanaka/havana_startup/blob/master/doc/ca_setup.rst>`_
+**Day 4.** `Make Keystone and Horizon Secure (enable SSL). [On The Way] <https://github.com/kjtanaka/havana_startup/blob/master/doc/ca_setup.rst>`_
 
-**Day 5.** Make Keystone Secure (enable SSL). [OTW]
+**Day 5.** Build Swift [OTW]
 
-**Day 6.** Build Swift [OTW]
+**Day 6.** Setup Swift as the backend storage of Glance [OTW]
 
-**Day 7.** Setup Swift as the backend storage of Glance [OTW]
+**Day 7.** Better understand Open vSwitch before Neutron [OTW]
 
-**Day 8.** Better understand Open vSwitch before Neutron [OTW]
-
-**Day 9.** Setup Neutron. [OTW]
+**Day 8.** Setup Neutron. [OTW]
 
 News
 ----
