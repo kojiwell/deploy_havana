@@ -4,8 +4,8 @@ OpenStack Havana Agile Startup
 This is about how to start OpenStack Havana in a small 
 scale and grow it to some extent.
 
-Build All-in-One Node Anyway
-----------------------------
+Build All-in-One Node to begin with
+-----------------------------------
 
 ::
 
@@ -57,8 +57,8 @@ Execute ``build_all_in_one.sh`` with ``-ex`` option. ::
 If the bash script finished fine, your machine would be rebooted at the end of the script. 
 So wait until it becomes online.
 
-Boot Your First Instance and Feel It
-------------------------------------
+Boot Your First Instance
+------------------------
 
 Load nova environment. ::
 
@@ -139,7 +139,7 @@ Next things to do
 
 **7.** Setup Neutron. [OTW]
 
-News
+Updates
 ----
 | **10/17/2013** Day 1 and Day 2 are ready to try.
 | **10/18/2013** Day 3 is ready to try.
