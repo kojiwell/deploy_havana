@@ -1,46 +1,143 @@
 OpenStack Havana Agile Startup
 ==============================
 
-OpenStack has high-scalability. So why don't we start with a single node, 
-heading toward a right scale for each? So this is about a step-by-step 
-startup of OpenStack Havana with Ubuntu 12.04 LTS. 
+This is about how to start OpenStack Havana in a small 
+scale and grow it to some extent.
 
-Goods and Bads about this approach
-----------------------------------
+Build All-in-One Node Anyway
+----------------------------
 
-* Goods
-   * You can start with single node, which should be the easiest, and then scale it 
-     to some extent with adding nodes and components.
-   * The Bash scripts helps you to reduce manual works.
-   * Each step makes something workable, with a little more effort.
-   * Debug is relatively easy because you know it was working at the previous step.
-* Bads
-   * The document is ongoing and unfinished, and the scripts are beta forever.
-     I often update things right now.
-   * Each step makes something good. However, going to the next step will make
-     some extra work for reconfiguration. For example, when you enable 
-     ssl on keystone later, you need to delete the keystone endpoint and 
-     relegister it with https. This kind of work happens at each step.
-   * Best-effort in a lot of ways.
+::
 
-Index
------
+    Public Network
+   +-------------------------------
+       |                           
+       | eth1 [xxx.xxx.xxx.xxx/24] 
+     +-----------------+           
+     | host01          |           
+     | =============== |           
+     | Keystone        |           
+     | Glance          |           
+     | Horizon         |          
+     | Nova API        |          
+     | Nova Scheduler  |          
+     | Nova Compute    |
+     | Nova Network    | 
+     | Nova Conductor  |      
+     +-----------------           
+       | eth0 [xxx.xxx.xxx.xxx/24] 
+       |                           
+   +-------------------------------
+    Internal/Admin Network
 
-**Day 1.** `Build all-in-one node anyway. <https://github.com/kjtanaka/havana_startup/blob/master/doc/all_in_one.rst>`_
+Quick Installation by Bash Script
+---------------------------------
 
-**Day 2.** `Add Nova compute nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_compute.rst>`_
+First of all, you need to update ``/etc/hosts`` for your environment. If your hostname is not resolvable,
+``nova-network`` will fail to start.
 
-**Day 3.** `Build Cinder volume nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_volume.rst>`_
+Switch to ``root`` user, and download the bash script. ::
 
-**Day 4.** `Enable SSL on Keystone and Horizon. <https://github.com/kjtanaka/havana_startup/blob/master/doc/ca_setup.rst>`_
+   sudo -i
+   git clone https://github.com/kjtanaka/havana_startup.git
+   cd havana_startup
 
-**Day 5.** Build Swift [On The Way]
+Create and modify your ``setuprc`` file. Two examples of ``setuprc`` are given below. ::
 
-**Day 6.** Setup Swift as the backend storage of Glance [OTW]
+   cp setuprc_example_[1NIC/2NICs] setuprc
+   vi setuprc
 
-**Day 7.** Better understand Open vSwitch before Neutron [OTW]
+* `setuprc example for 2NICs <https://github.com/kjtanaka/havana_startup/blob/master/doc/setuprc_2nics.rst>`_
+* `setuprc example for 1NIC <https://github.com/kjtanaka/havana_startup/blob/master/doc/setuprc_1nic.rst>`_
 
-**Day 8.** Setup Neutron. [OTW]
+Execute ``build_all_in_one.sh`` with ``-ex`` option. ::
+
+   bash -ex build_all_in_one.sh
+
+If the bash script finished fine, your machine would be rebooted at the end of the script. 
+So wait until it becomes online.
+
+Boot Your First Instance and Feel It
+------------------------------------
+
+Load nova environment. ::
+
+   cd havana_startup
+   source admin_credential
+
+Check the list of images, flavors and keypairs. ::
+
+   nova image-list
+
+   +--------------------------------------+--------------+--------+--------+
+   | ID                                   | Name         | Status | Server |
+   +--------------------------------------+--------------+--------+--------+
+   | d95da7a5-d67d-4569-9edf-9524071b2c05 | ubuntu-12.04 | ACTIVE |        |
+   +--------------------------------------+--------------+--------+--------+
+   
+::
+
+   nova flavor-list
+
+   +----+-----------+-----------+------+-----------+------+-------+-------------+-----------+
+   | ID | Name      | Memory_MB | Disk | Ephemeral | Swap | VCPUs | RXTX_Factor | Is_Public |
+   +----+-----------+-----------+------+-----------+------+-------+-------------+-----------+
+   | 1  | m1.tiny   | 512       | 1    | 0         |      | 1     | 1.0         | True      |
+   | 2  | m1.small  | 2048      | 20   | 0         |      | 1     | 1.0         | True      |
+   | 3  | m1.medium | 4096      | 40   | 0         |      | 2     | 1.0         | True      |
+   | 4  | m1.large  | 8192      | 80   | 0         |      | 4     | 1.0         | True      |
+   | 5  | m1.xlarge | 16384     | 160  | 0         |      | 8     | 1.0         | True      |
+   +----+-----------+-----------+------+-----------+------+-------+-------------+-----------+
+
+::
+
+   nova keypair-list
+
+   +------+-------------------------------------------------+
+   | Name | Fingerprint                                     |
+   +------+-------------------------------------------------+
+   | key1 | xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx |
+   +------+-------------------------------------------------+
+
+Boot your first instance. ::
+
+   nova boot --image ubuntu-12.04 --flavor m1.small --key-name key1 vm001
+
+Check the status of instance. ::
+
+   nova list
+
+   +--------------------------------------+-------+--------+------------+-------------+-----------------------+
+   | ID                                   | Name  | Status | Task State | Power State | Networks              |
+   +--------------------------------------+-------+--------+------------+-------------+-----------------------+
+   | a94c8354-b2fb-432e-8ff2-d98e30b50162 | vm001 | ACTIVE | None       | Running     | private=192.168.201.2 |
+   +--------------------------------------+-------+--------+------------+-------------+-----------------------+
+
+Take a look at the console log. ::
+
+   nova console-log vm001
+
+If all look good, you should be able to ssh to your first instance. ::
+
+   ssh -i key1.pem ubuntu@192.168.201.2
+
+
+Next things to do
+-----------------
+
+**1.** `Add Nova compute nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_compute.rst>`_
+
+**2.** `Build Cinder volume nodes. <https://github.com/kjtanaka/havana_startup/blob/master/doc/add_volume.rst>`_
+
+**3.** `Enable SSL on Keystone and Horizon. <https://github.com/kjtanaka/havana_startup/blob/master/doc/ca_setup.rst>`_
+
+**4.** Build Swift [On The Way]
+
+**5.** Setup Swift as the backend storage of Glance [OTW]
+
+**6.** Better understand Open vSwitch before Neutron [OTW]
+
+**7.** Setup Neutron. [OTW]
 
 News
 ----
@@ -48,7 +145,7 @@ News
 | **10/18/2013** Day 3 is ready to try.
 | **10/28/2013** Day 4 is ready to try.
 
-Change Log
+Script Change Log
 ----------
 * The all-in-one bash script was originally written by Akira Yoshiyama-san, under Apache License 2.0. It was
   for Folsom version when I forked it. The link to Yoshiyama-san's script is here 
@@ -61,6 +158,7 @@ Change Log
     * modified for Grizzly version.
     * modified for Havana version.
     * made a script for adding more Cinder volume nodes.
+    * Made a script for Keystone's SSL setting.
 
 License
 -------

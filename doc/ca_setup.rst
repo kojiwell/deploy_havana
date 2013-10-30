@@ -20,7 +20,7 @@ and execute the script like this. ::
 
 If the bash script finshed fine, you can try the follows.
 
-Use client of Keystone, Nova and Glance
+Try client of Keystone, Nova and Glance
 ---------------------------------------
 
 Setup your OpenStack environment and try some commands ::
@@ -31,8 +31,20 @@ Setup your OpenStack environment and try some commands ::
    nova list
    glance image-list
 
-Use Horizon with https
+Try Horizon with HTTPS
 ----------------------
 
 Try `<https://hostname.yoursite.org/horizon>`_ .
+
+Update and restart Nova Compute nodes
+-------------------------------------
+
+Copy ``/etc/nova/api-paste.ini`` and ``/etc/nova/nova.conf`` to your compute node and restart the service. ::
+
+   scp -p /etc/nova/api-paste.ini compute_node:/etc/nova/api-paste.ini
+   ssh compute_node restart nova-compute
+   ssh compute_node restart nova-network
+
+Update and restart Cinder Volume nodes
+--------------------------------------
 
