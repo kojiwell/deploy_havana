@@ -6,7 +6,7 @@
 
 source setuprc
 
-grep ^$CINDER_VOLUME
+grep ^$CINDER_VOLUME /etc/fstab
 if [[ if [[ $? -eq 0 ]]; then
     echo "$CINDER_VOLUME shows in /etc/fstab"
     exit 1
