@@ -471,6 +471,7 @@ glance image-create \
 	--name ubuntu-12.04 \
 	--disk-format qcow2 \
 	--container-format bare \
+        --is-public true \
 	--file ubuntu-12.04-server-cloudimg-amd64-disk1.img
 
 rm -f ubuntu-12.04-server-cloudimg-amd64-disk1.img
