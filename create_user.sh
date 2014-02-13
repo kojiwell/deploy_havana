@@ -14,7 +14,7 @@ source setuprc
 tenant=$1
 username=$2
 pass=$(tr -dc a-zA-Z0-9 </dev/urandom |  head -c 12)
-cert_dir="~/$tenant"
+cert_dir="$HOME/$tenant"
 
 keystone user-create --name $username --enabled true --pass $pass
 keystone user-role-add --user $username --role "_member_" --tenant $tenant
