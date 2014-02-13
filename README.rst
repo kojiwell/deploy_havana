@@ -1,5 +1,5 @@
-OpenStack Havana Agile Startup
-==============================
+OpenStack Havana Startup
+========================
 
 This is about how to start OpenStack Havana in a small 
 scale and grow it to some extent.
