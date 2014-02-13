@@ -486,6 +486,7 @@ chmod 600 key1.pem
 ## Add ssh config
 ##############################################################################
 
+test -d ~/.ssh || mkdir ~/.ssh && chmod 700 ~/.ssh
 echo StrictHostKeyChecking no >> ~/.ssh/config
 echo UserKnownHostsFile=/dev/null >> ~/.ssh/config
 
