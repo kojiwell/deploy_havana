@@ -371,6 +371,7 @@ sed -e "s#--publicurl http://localhost#--publicurl http://$CONTROLLER_PUBLIC_ADD
     -e "s#--adminurl 'http://localhost#--adminurl 'http://$CONTROLLER_ADMIN_ADDRESS#g" \
     -e "s#--internalurl http://localhost#--internalurl http://$CONTROLLER_INTERNAL_ADDRESS#g" \
     -e "s#--internalurl 'http://localhost#--internalurl 'http://$CONTROLLER_INTERNAL_ADDRESS#g" \
+    -e 's/^RESULT=.*/RESULT=BUG_WORKAROUND/' \
     /usr/share/keystone/sample_data.sh > /tmp/sample_data.sh
 bash -ex /tmp/sample_data.sh
 
