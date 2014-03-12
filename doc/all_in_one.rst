@@ -38,16 +38,16 @@ First of all, you need to update ``/etc/hosts`` for your environment. If your ho
 Switch to ``root`` user, and download the bash script. ::
 
    sudo -i
-   git clone https://github.com/kjtanaka/havana_startup.git
-   cd havana_startup
+   git clone https://github.com/kjtanaka/deploy_havana.git
+   cd deploy_havana
 
 Create and modify your ``setuprc`` file. Two examples of ``setuprc`` are given below. ::
 
    cp setuprc_example_[1NIC/2NICs] setuprc
    vi setuprc
 
-* `setuprc example for 2NICs <https://github.com/kjtanaka/havana_startup/blob/master/doc/setuprc_2nics.rst>`_
-* `setuprc example for 1NIC <https://github.com/kjtanaka/havana_startup/blob/master/doc/setuprc_1nic.rst>`_
+* `setuprc example for 2NICs <https://github.com/kjtanaka/deploy_havana/blob/master/doc/setuprc_2nics.rst>`_
+* `setuprc example for 1NIC <https://github.com/kjtanaka/deploy_havana/blob/master/doc/setuprc_1nic.rst>`_
 
 Execute ``build_all_in_one.sh`` with ``-ex`` option. ::
 
@@ -61,7 +61,7 @@ Boot Your First Instance and Feel It
 
 Load nova environment. ::
 
-   cd havana_startup
+   cd deploy_havana
    source admin_credential
 
 Check the list of images, flavors and keypairs. ::

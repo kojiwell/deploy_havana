@@ -29,17 +29,17 @@ Add Cinder Volume Nodes
    +--------------------------------------------------------------------------
     Internal/Admin Network
 
-First, update ``/etc/hosts`` if needed, and copy it and your ``havana_startup``
+First, update ``/etc/hosts`` if needed, and copy it and your ``deploy_havana``
 directory to the Cinder Volume node(host03 in this example). ::
 
    scp /etc/hosts host03:/etc/hosts
-   scp -r havana_startup host03:havana_startup
+   scp -r deploy_havana host03:deploy_havana
 
 Login to host03 and set your cinder-volume partition on ``setuprc``.
 In this example ``/dev/sdb1`` is the Cinder Volume. ::
 
    ssh host03
-   cd havana_startup
+   cd deploy_havana
    echo CINDER_VOLUME=/dev/sdb1 >> setuprc
 
 Execute ``add_cinder_volume.sh`` with ``-ex`` option ::
@@ -62,7 +62,7 @@ Go back to host01(Management Host), and execute this. ::
 If ``cinder-volume`` is ``:-)``, the volume node is running ok. 
 So create a volume. ::
 
-   source havana_startup/admin_credential
+   source deploy_havana/admin_credential
    nova volume-create 10 --display-name vol10G
    nova volume-list
    

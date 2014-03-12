@@ -14,7 +14,7 @@ The script ``ca_setup.sh`` does the lavor work for you.
 So, login to your management nost and setup ``COMMON_NAME`` on setuprc, 
 and execute the script like this. ::
 
-   cd havana_startup
+   cd deploy_havana
    echo COMMON_NAME=hostname.yoursite.org >> setuprc
    bash -ex ca_setup.sh
 
@@ -25,7 +25,7 @@ Try client of Keystone, Nova and Glance
 
 Setup your OpenStack environment and try some commands ::
 
-   cd havana_startup
+   cd deploy_havana
    source admin_credential
    keystone endpoint-list
    nova list

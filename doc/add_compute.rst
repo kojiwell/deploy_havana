@@ -29,16 +29,16 @@ Add Nova Compute Nodes
    +--------------------------------------------------------------------------
     Internal/Admin Network
 
-First, update ``/etc/hosts`` if needed, and copy it and your ``havana_startup``
+First, update ``/etc/hosts`` if needed, and copy it and your ``deploy_havana``
 directory to the compute node(host02 in this example). ::
 
    scp /etc/hosts host02:/etc/hosts
-   scp -r havana_startup host02:havana_startup
+   scp -r deploy_havana host02:deploy_havana
 
 Login to host02 and execute ``add_nova_compute.sh`` with ``-ex`` option ::
 
    ssh host02
-   cd havana_startup
+   cd deploy_havana
    bash -ex add_nova_compute.sh
 
 If the bash script finshed fine, host02 would be rebooted.
